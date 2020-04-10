@@ -24,31 +24,29 @@ if ErrorLevel <> 0
     MsgBox, 0, Exit ready, CANCEL was pressed. , 2
 else{
 
-    ; 앞에 파싱하는 부분 넣기!
-    startDate = 20200202
-    endDate = yesterday
+    ; Parsing input string to start date and end date
+    ; 파싱하는 부분에서 기간 없는 거 제거해주기
+    StringSplit, word_array, studyDate, ~, .  ; Omits periods.
+
+    startDate = %word_array1%
+    endDate = %word_array2%
 
     FormatTime,TargetTime,,%startDate%
-    studyTerm := %endDate%
+    studyTerm := endDate
     TimePrev := studyTerm
-    studyTerm -= %TargetTime%, days
-    MsgBox % TimePrev " -`n" TargetTime " =`n" studyTerm " days"
 
+    studyTerm -= %TargetTime%, days
     
-    MsgBox, 4, , "%studyDate%" 입력한 날짜로 다운로드를 시작하겠습니다. , 3
+    MsgBox, 4, , %studyTerm%일: "%studyDate%" 날짜의 데이터 다운로드를 시작하겠습니다. , 5
     IfMsgBox, No
         Return  ; "No" button.
-    IfMsgBox, Timeout
-    Return ; i.e. Assume "No" if it timed out.
     ; Otherwise, continue:
-
-
     
 
-
-    ClinckAndInput(studyDate, 625, 180) ; position of INFINIT Date input form
-    ClinckAndInput(modality, 850, 180) ; position of INFINIT Date input form
-    ClinckAndInput(requestingName, 1190, 180) ; position of INFINIT Date input form
+    
+    ClickAndInput(studyDate, 625, 180) ; position of INFINIT Date input form
+    ClickAndInput(modality, 850, 180) ; position of INFINIT Date input form
+    ClickAndInput(requestingName, 1190, 180) ; position of INFINIT Date input form
     
     Mousemove, 1512, 150 ; search
     Sleep, 200
@@ -60,18 +58,20 @@ else{
     MouseClick
     Sleep, 200
 
-    while(studyTerm != 0){
-        MouseClick, WheelDown, , , 100
-        Sleep, 500
-        studyTerm --
-    }
+    RefreshData(studyTerm) ; data refreshing
+
+    MouseClick 
+    Sleep, 1000 ; 마우스 클릭 후 로드될 때까지 1초 대기
+    MouseClick, right ; 마우스 오른쪽 버튼 클릭 후
+    MouseClick, left, 59, 774, , , , R ; relative로 mouse이동 ㄱㄱ
+    ; 
 
 }
 return
 
 
 ; 클릭 함수
-ClinckAndInput(inputText, X_pos, Y_pos)
+ClickAndInput(inputText, X_pos, Y_pos)
 {
     Mousemove, X_pos, Y_pos ; position of INFINIT Date input form
     Sleep, 200
@@ -82,8 +82,259 @@ ClinckAndInput(inputText, X_pos, Y_pos)
     return
 }
 
+; 데이터 수동 새로고침
+RefreshData(studyTerm)
+{
+    while(studyTerm != 0){
+        MouseClick, WheelDown, , , 50
+        Sleep, 2000
+        studyTerm --
+    }
+    return
+}
+
 
 
 ^Esc::
 ExitApp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
