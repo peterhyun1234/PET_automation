@@ -12,6 +12,13 @@ idIdx = 1
 idArray:= Object()
 currentID = 0
 
+currentReadLine := ""
+
+clear := ""
+
+idTxtName = test.txt
+
+destTxtName = march_result.txt
 
 
 
@@ -19,6 +26,7 @@ Gui, New, hwndhGui AlwaysOnTop
 Gui, Add, Text,, Temp window
 Gui, Add, Edit, x21 y45 w500 h19 vName, Edit
 Gui, Add, Button, x150 y150 w100 h30 gPush, please push
+Gui, Add, Button, x350 y150 w100 h30 gClear, Clear
 Gui, Show
 
 
@@ -32,9 +40,16 @@ return
 
 
 
+
+Clear:
+Guicontrol,, Edit, %clear%
+return
+
+
+
 ^r:: ; 1. load IDs in file data
 
-Loop, Read, C:\Users\Administrator\Desktop\autohotkey\AutoHotkey\result_of\test.txt
+Loop, Read, C:\Users\Administrator\Desktop\autohotkey\AutoHotkey\result_of\%idTxtName%
 {
 	idArray.insert(A_LoopReadLine)
 }
@@ -80,8 +95,6 @@ return
 
 
 
-
-
 a:: ; Start Settings with Left leg
 
 X = -4
@@ -104,13 +117,30 @@ return
 
 
 
-s:: ; move ROI from bone to muscle with Left leg
 
-	MouseClick
-	Sleep, 200
-	MouseClickDrag, L, , , -85, 0, ,R
+
+s:: ; 5. if can, press each leg macro key
+
+write_temp_femur()
+
+Sleep, 200
+
+;move_to_thigh()
+
+Sleep, 200
+
+;write_temp_thigh()
+
+Sleep, 200
+
+;write_statistics()
+
+Sleep, 200
 
 return 
+
+
+
 
 
 d:: ; move ROI to right with Left leg
@@ -120,6 +150,8 @@ d:: ; move ROI to right with Left leg
 	MouseClickDrag, L, , , 5, 0, ,R
 
 return 
+
+
 
 
 
@@ -174,6 +206,8 @@ Create_ROI(sideOfleg)
 open_statistics()
 
 return 
+
+
 
 
 
@@ -279,6 +313,67 @@ closeCards(cardNum){
 	}
 }
 
+
+
+write_temp_femur(){
+
+	Mousemove, 1750, 185 ; clear
+	MouseClick
+
+	Mousemove, 157, 699 ; total count
+	MouseClick, ,,, 2 ; double click
+	Send ^c
+	Mousemove, 1750, 77 ; temp Window
+	MouseClick
+	Send ^v
+	Send, {Space}
+	Send !{Tab}
+
+	Sleep, 100
+	Mousemove, 157, 819 ; Std Dev
+	MouseClick, ,,, 2 ; double click
+	Send ^c
+	Mousemove, 1750, 77 ; temp Window
+	MouseClick
+	Send ^v
+	Send, {Space}
+	Send !{Tab}
+
+	Sleep, 100
+	Mousemove, 157, 848 ; Area
+	MouseClick, ,,, 2 ; double click
+	Send ^c
+	Mousemove, 1750, 77 ; temp Window
+	MouseClick
+	Send ^v
+	Send, {Space}
+	Send !{Tab}
+}
+
+
+write_temp_thigh(){
+	; 
+}
+
+move_to_thigh(){
+
+MouseClick
+Sleep, 200
+MouseClickDrag, L, , , -85, 0, ,R
+
+; read statistics by using reading button
+; compare if equal by parsing the datas
+
+if not correct 
+	MouseClick
+	Sleep, 200
+	MouseClickDrag, L, , , 5, 0, ,R
+
+}
+
+write_statistics(){
+	;destTxtName 
+}
 
 
 ^ESC::
