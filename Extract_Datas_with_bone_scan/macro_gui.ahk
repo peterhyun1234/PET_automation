@@ -14,42 +14,75 @@ currentID = 0
 
 currentReadLine := ""
 
-clear := ""
+
+femur_total_cnt = 0
+femur_std_dev = 0
+femur_area = 0
+
+thigh_total_cnt = 0
+thigh_std_dev = 0
+thigh_area = 0
 
 idTxtName = test.txt
-
 destTxtName = march_result.txt
+
+
+xpos = 0
+ypos = 0
 
 
 
 Gui, New, hwndhGui AlwaysOnTop
 Gui, Add, Text,, Temp window
 Gui, Add, Edit, x21 y45 w500 h19 vName, Edit
-Gui, Add, Button, x150 y150 w100 h30 gPush, please push
-Gui, Add, Button, x350 y150 w100 h30 gClear, Clear
+Gui, Add, Button, x50 y150 w100 h30 gPush_femur, read femur
+Gui, Add, Button, x220 y150 w100 h30 gPush_thigh, read thigh
 Gui, Show
 
 
 
-Push:
+
+
+Push_femur:
 Gui,Submit,nohide
 
-Msgbox, %Name%
+; name parsing needed
+parsed_temp_window := StrSplit(Name, A_Space, ".")
+
+femur_total_cnt := parsed_temp_window[1]
+femur_std_dev := parsed_temp_window[2]
+femur_area := parsed_temp_window[3]
+
+;MsgBox % "TC is " femur_total_cnt ", std is " femur_std_dev ", area is " femur_area
 
 return
 
 
 
 
-Clear:
-Guicontrol,, Edit, %clear%
+
+
+Push_thigh:
+Gui,Submit,nohide
+
+; name parsing needed
+parsed_temp_window := StrSplit(Name, A_Space, ".")
+
+thigh_total_cnt := parsed_temp_window[1]
+thigh_std_dev := parsed_temp_window[2]
+thigh_area := parsed_temp_window[3]
+
+;MsgBox % "TC is " thigh_total_cnt ", std is " thigh_std_dev ", area is " thigh_area
+
 return
+
+
 
 
 
 ^r:: ; 1. load IDs in file data
 
-Loop, Read, C:\Users\Administrator\Desktop\autohotkey\AutoHotkey\result_of\%idTxtName%
+Loop, Read, C:\Program Files\AutoHotkey\result_of\%idTxtName%
 {
 	idArray.insert(A_LoopReadLine)
 }
@@ -123,19 +156,27 @@ s:: ; 5. if can, press each leg macro key
 
 write_temp_femur()
 
-Sleep, 200
+Sleep, 100
 
-;move_to_thigh()
+push_femur_data()
 
-Sleep, 200
+Sleep, 100
+
+move_to_thigh()
+
+Sleep, 100
 
 ;write_temp_thigh()
 
-Sleep, 200
+;Sleep, 100
+
+;push_thigh_data()
+
+;Sleep, 100
 
 ;write_statistics()
 
-Sleep, 200
+;Sleep, 100
 
 return 
 
@@ -317,8 +358,19 @@ closeCards(cardNum){
 
 write_temp_femur(){
 
-	Mousemove, 1750, 185 ; clear
+	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
+
+	Mousemove, 1750, 77 ; temp Window
 	MouseClick
+	Send, ^a
+	Send, {BS}
+	Sleep, 100
+
+
+	Mousemove, -900, 175
+	MouseClick
+
+	
 
 	Mousemove, 157, 699 ; total count
 	MouseClick, ,,, 2 ; double click
@@ -348,32 +400,132 @@ write_temp_femur(){
 	Send ^v
 	Send, {Space}
 	Send !{Tab}
+
+	;Sleep, 100
+	;Mousemove, %xpos%, %ypos% ; return to origin of mouse position
+	;MouseClick
 }
 
 
 write_temp_thigh(){
-	; 
+
+	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
+
+	Mousemove, 1750, 77 ; temp Window
+	MouseClick
+	Send, ^a
+	Send, {BS}
+	Sleep, 100
+
+
+	Mousemove, -900, 175 
+	MouseClick
+	
+
+	Mousemove, 157, 699 ; total count
+	MouseClick, ,,, 2 ; double click
+	Send ^c
+	Mousemove, 1750, 77 ; temp Window
+	MouseClick
+	Send ^v
+	Send, {Space}
+	Send !{Tab}
+
+	Sleep, 100
+	Mousemove, 157, 819 ; Std Dev
+	MouseClick, ,,, 2 ; double click
+	Send ^c
+	Mousemove, 1750, 77 ; temp Window
+	MouseClick
+	Send ^v
+	Send, {Space}
+	Send !{Tab}
+
+	Sleep, 100
+	Mousemove, 157, 848 ; Area
+	MouseClick, ,,, 2 ; double click
+	Send ^c
+	Mousemove, 1750, 77 ; temp Window
+	MouseClick
+	Send ^v
+	Send, {Space}
+	Send !{Tab}
+
+;if not correct 
+	;MouseClick
+	;Sleep, 200
+	;MouseClickDrag, L, , , 5, 0, ,R
 }
 
 move_to_thigh(){
 
-MouseClick
-Sleep, 200
-MouseClickDrag, L, , , -85, 0, ,R
-
-; read statistics by using reading button
-; compare if equal by parsing the datas
-
-if not correct 
 	MouseClick
 	Sleep, 200
-	MouseClickDrag, L, , , 5, 0, ,R
+	MouseClickDrag, L, , , -85, 0, ,R
 
 }
 
 write_statistics(){
 	;destTxtName 
 }
+
+
+
+
+
+
+
+push_femur_data(){
+
+	Mousemove, 1482, 189 ; femur push button
+	MouseClick
+
+	Sleep, 200
+
+	Mousemove, -900, 175
+	MouseClick
+
+	Sleep, 100
+	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
+	MouseClick
+
+}
+
+push_thigh_data(){
+
+	Mousemove, 1651, 189 ; thigh push button
+	MouseClick
+
+	Sleep, 100
+
+	Mousemove, -900, 175
+	MouseClick
+
+	Sleep, 100
+	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
+	MouseClick
+}
+
+
+
+
+
+
+
+
+initialize_count(){
+
+	femur_total_cnt = 0
+	femur_std_dev = 0
+	femur_area = 0
+
+	thigh_total_cnt = 0
+	thigh_std_dev = 0
+	thigh_area = 0
+
+}
+
+
 
 
 ^ESC::
