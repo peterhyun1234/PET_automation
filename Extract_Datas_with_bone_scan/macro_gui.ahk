@@ -132,6 +132,9 @@ Sleep, 100
 Send, {Enter}
 Sleep, 100
 
+Mousemove, 30, 236
+MouseClick
+
 idIdx ++
 
 return
@@ -185,11 +188,17 @@ if( push_thigh_data() = 0){
 	return
 }
 
-;Sleep, 100
+Sleep, 100
 
-;write_statistics()
+write_statistics()
 
-;Sleep, 100
+Sleep, 100
+
+initialize_count()
+
+Sleep, 100
+
+close_reviews()
 
 return 
 
@@ -267,6 +276,8 @@ return
 
 
 
+
+
 x:: ; move ROI from bone to muscle with right leg
 
 	MouseClick
@@ -274,6 +285,9 @@ x:: ; move ROI from bone to muscle with right leg
 	MouseClickDrag, L, , , 85, 0, ,R
 
 return 
+
+
+
 
 
 
@@ -315,6 +329,9 @@ StartSetting(X, Y, Zoom, Bright){
 }
 
 
+
+
+
 Create_ROI(sideOfleg){
 	
 	anglePosition = 580
@@ -336,6 +353,9 @@ Create_ROI(sideOfleg){
 
 }
 
+
+
+
 open_statistics(){
 
 	Sleep, 50
@@ -346,6 +366,8 @@ open_statistics(){
 	MouseClick, left, 545, 580
 
 }
+
+
 
 
 closeCards(cardNum){
@@ -366,6 +388,8 @@ closeCards(cardNum){
 		cardNum --
 	}
 }
+
+
 
 
 
@@ -421,6 +445,8 @@ write_temp_femur(){
 	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
 	MouseClick
 }
+
+
 
 
 write_temp_thigh(){
@@ -489,11 +515,6 @@ move_to_thigh(){
 
 
 
-
-
-write_statistics(){
-	;destTxtName 
-}
 
 
 
@@ -579,7 +600,7 @@ push_thigh_data(){
 
 			Sleep, 200	
 			
-			push_femur_data()
+			push_thigh_data()
 		}else {
 			;MsgBox, "fine"
 			return 1
@@ -592,9 +613,43 @@ push_thigh_data(){
 
 
 
+write_statistics(){
+
+	global destTxtName 
+
+	global currentID
+
+	global femur_total_cnt 
+	global femur_std_dev 
+	global femur_area 
+
+	global thigh_total_cnt 
+	global thigh_std_dev 
+	global thigh_area 
+
+	FileAppend, %currentID% %femur_total_cnt% %femur_std_dev% %femur_area% %thigh_total_cnt% %thigh_std_dev% %thigh_area%`n, C:\Program Files\AutoHotkey\result_of\%destTxtName%
+
+}
+
+
+
+
+
+
+
+
+
 
 
 initialize_count(){
+
+	global femur_total_cnt 
+	global femur_std_dev 
+	global femur_area 
+
+	global thigh_total_cnt 
+	global thigh_std_dev 
+	global thigh_area 
 
 	femur_total_cnt = 0
 	femur_std_dev = 0
@@ -606,6 +661,21 @@ initialize_count(){
 
 }
 
+
+
+close_reviews(){
+
+	Mousemove, 262, 125
+	Sleep, 300
+	MouseClick
+	Sleep, 200
+	Send,{TAB}
+	Sleep, 200
+	Send,{TAB}
+	Sleep, 200
+	Send, {Enter}
+
+}
 
 
 
