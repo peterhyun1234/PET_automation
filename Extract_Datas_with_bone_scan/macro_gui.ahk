@@ -371,6 +371,9 @@ closeCards(cardNum){
 
 write_temp_femur(){
 
+	global xpos
+	global ypos
+
 	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
 
 	Mousemove, 1750, 77 ; temp Window
@@ -421,6 +424,9 @@ write_temp_femur(){
 
 
 write_temp_thigh(){
+
+	global xpos
+	global ypos
 
 	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
 
@@ -510,7 +516,10 @@ little_move_to_right(){
 
 push_femur_data(){
 
-	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
+	global xpos
+	global ypos
+
+	;MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
 
 	Mousemove, 1482, 189 ; femur push button
 	MouseClick
@@ -528,6 +537,18 @@ push_femur_data(){
 
 push_thigh_data(){
 
+
+	global femur_total_cnt 
+	global femur_std_dev 
+	global femur_area 
+
+	global thigh_total_cnt 
+	global thigh_std_dev 
+	global thigh_area 
+
+	global xpos
+	global ypos
+	
 	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
 
 	Mousemove, 1651, 189 ; thigh push button
