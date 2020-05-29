@@ -44,6 +44,11 @@ Gui, Show
 
 
 Push_femur:
+
+global femur_total_cnt
+global femur_std_dev 
+global femur_area 
+
 Gui,Submit,nohide
 
 ; name parsing needed
@@ -63,6 +68,11 @@ return
 
 
 Push_thigh:
+
+global thigh_total_cnt 
+global thigh_std_dev 
+global thigh_area 
+
 Gui,Submit,nohide
 
 ; name parsing needed
@@ -166,11 +176,14 @@ move_to_thigh()
 
 Sleep, 100
 
-;write_temp_thigh()
+write_temp_thigh()
 
-;Sleep, 100
+Sleep, 100
 
-;push_thigh_data()
+if( push_thigh_data() = 0){
+	MsgBox, "ROI was not moved!"
+	return
+}
 
 ;Sleep, 100
 
@@ -401,9 +414,9 @@ write_temp_femur(){
 	Send, {Space}
 	Send !{Tab}
 
-	;Sleep, 100
-	;Mousemove, %xpos%, %ypos% ; return to origin of mouse position
-	;MouseClick
+	Sleep, 100
+	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
+	MouseClick
 }
 
 
@@ -451,11 +464,14 @@ write_temp_thigh(){
 	Send, {Space}
 	Send !{Tab}
 
-;if not correct 
-	;MouseClick
-	;Sleep, 200
-	;MouseClickDrag, L, , , 5, 0, ,R
+	Sleep, 100
+	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
+	MouseClick
 }
+
+
+
+
 
 move_to_thigh(){
 
@@ -465,6 +481,10 @@ move_to_thigh(){
 
 }
 
+
+
+
+
 write_statistics(){
 	;destTxtName 
 }
@@ -473,9 +493,24 @@ write_statistics(){
 
 
 
+little_move_to_right(){
+
+	MouseClick
+	Sleep, 200
+	MouseClickDrag, L, , , 5, 0, ,R
+
+}
+
+
+
+
+
+
 
 
 push_femur_data(){
+
+	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
 
 	Mousemove, 1482, 189 ; femur push button
 	MouseClick
@@ -493,10 +528,12 @@ push_femur_data(){
 
 push_thigh_data(){
 
+	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
+
 	Mousemove, 1651, 189 ; thigh push button
 	MouseClick
 
-	Sleep, 100
+	Sleep, 200
 
 	Mousemove, -900, 175
 	MouseClick
@@ -504,6 +541,29 @@ push_thigh_data(){
 	Sleep, 100
 	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
 	MouseClick
+
+	Sleep, 100
+
+	; Check if it moved well 
+	MsgBox, % "femur_total_cnt: " femur_total_cnt ", thigh_total_cnt: " thigh_total_cnt
+	
+	if (%femur_total_cnt% = %thigh_total_cnt%){
+		MsgBox, "same"
+		return 0
+	}else {
+		if(%femur_area% != %thigh_area%){
+			MsgBox, "little_move_to_right"
+			
+			little_move_to_right()
+
+			Sleep, 200	
+			
+			push_femur_data()
+		}else {
+			MsgBox, "fine"
+			return 1
+		}
+	}
 }
 
 
