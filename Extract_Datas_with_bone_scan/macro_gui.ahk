@@ -566,14 +566,14 @@ push_thigh_data(){
 	Sleep, 100
 
 	; Check if it moved well 
-	MsgBox, % "femur_total_cnt: " femur_total_cnt ", thigh_total_cnt: " thigh_total_cnt
+	;MsgBox, % "femur_total_cnt: " femur_total_cnt ", thigh_total_cnt: " thigh_total_cnt
 	
-	if (%femur_total_cnt% = %thigh_total_cnt%){
-		MsgBox, "same"
+	if (femur_total_cnt = thigh_total_cnt){
+		;MsgBox, "same"
 		return 0
 	}else {
-		if(%femur_area% != %thigh_area%){
-			MsgBox, "little_move_to_right"
+		if(femur_area != thigh_area){
+			;MsgBox, "little_move_to_right"
 			
 			little_move_to_right()
 
@@ -581,7 +581,7 @@ push_thigh_data(){
 			
 			push_femur_data()
 		}else {
-			MsgBox, "fine"
+			;MsgBox, "fine"
 			return 1
 		}
 	}
