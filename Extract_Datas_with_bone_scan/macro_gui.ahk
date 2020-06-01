@@ -49,7 +49,7 @@ Push_femur:
 
 global femur_total_cnt
 global femur_std_dev 
-global femur_area 
+global femur_area
 
 global stopFlag
 
@@ -62,9 +62,11 @@ femur_total_cnt := parsed_temp_window[1]
 femur_std_dev := parsed_temp_window[2]
 femur_area := parsed_temp_window[3]
 
-MsgBox, 4, , % "femur_area: " femur_area , 3
+;MsgBox, 4, , % "femur_area: " femur_area , 3
 
-if (femur_area != 99 or femur_area != 100){
+if (femur_area = 99 or femur_area = 100){
+	return
+}else{
 	Msgbox, 4, , Area is not appropriate. Do you want to continue?
 	IfMsgBox No 
 		stopFlag = 1
@@ -639,14 +641,16 @@ push_thigh_data(){
 		MsgBox, 4, , "same", 3
 		return 0
 	}else {
-		if(femur_area != thigh_area){
+		if (femur_area != thigh_area){
 			;MsgBox, "little_move_to_right"
-			
+			MsgBox, 4, , % "femur_area: " femur_area ", thigh_area: " thigh_area, 3
 			little_move_to_right()
 
 			Sleep, 50	
-			
+			write_temp_thigh()
+			Sleep, 50
 			push_thigh_data()
+
 		}else {
 			;MsgBox, "fine"
 			return 1
@@ -722,7 +726,7 @@ close_reviews(){
 
 	Sleep, 100
 
-	Mousemove, 540, -224
+	Mousemove, -740, 50
 	MouseClick
 }
 
