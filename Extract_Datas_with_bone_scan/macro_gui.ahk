@@ -9,6 +9,7 @@
 
 
 stopFlag = 0
+reIndicateFlag = 0
 
 idIdx = 1
 idArray:= Object()
@@ -39,7 +40,7 @@ Gui, Add, Text,, Temp window
 Gui, Add, Edit, x21 y45 w500 h19 vName, Edit
 Gui, Add, Button, x50 y150 w100 h30 gPush_femur, read femur
 Gui, Add, Button, x220 y150 w100 h30 gPush_thigh, read thigh
-Gui, Show
+Gui, Show, x3300 y0
 
 
 
@@ -606,6 +607,7 @@ push_femur_data(){
 
 push_thigh_data(){
 
+	global reIndicateFlag
 
 	global femur_total_cnt 
 	global femur_std_dev 
@@ -642,6 +644,12 @@ push_thigh_data(){
 		return 0
 	}else {
 		if (femur_area != thigh_area){
+	
+			if (reIndicateFlag = 2){
+				reIndicateFlag = 0
+				return
+			}
+
 			;MsgBox, "little_move_to_right"
 			MsgBox, 4, , % "femur_area: " femur_area ", thigh_area: " thigh_area, 3
 			little_move_to_right()
@@ -650,6 +658,8 @@ push_thigh_data(){
 			write_temp_thigh()
 			Sleep, 50
 			push_thigh_data()
+			
+			reIndicateFlag ++
 
 		}else {
 			;MsgBox, "fine"
