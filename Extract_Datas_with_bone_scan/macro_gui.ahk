@@ -23,7 +23,7 @@ thigh_total_cnt = 0
 thigh_std_dev = 0
 thigh_area = 0
 
-idTxtName = test.txt
+idTxtName = March_ID.txt
 destTxtName = march_result.txt
 
 
@@ -169,34 +169,34 @@ s:: ; 5. if can, press each leg macro key
 
 write_temp_femur()
 
-Sleep, 100
+Sleep, 50
 
 push_femur_data()
 
-Sleep, 100
+Sleep, 50
 
 move_to_thigh()
 
-Sleep, 100
+Sleep, 50
 
 write_temp_thigh()
 
-Sleep, 100
+Sleep, 50
 
 if( push_thigh_data() = 0){
 	MsgBox, "ROI was not moved!"
 	return
 }
 
-Sleep, 100
+Sleep, 50
 
 write_statistics()
 
-Sleep, 100
+Sleep, 50
 
 initialize_count()
 
-Sleep, 100
+Sleep, 50
 
 close_reviews()
 
@@ -404,7 +404,7 @@ write_temp_femur(){
 	MouseClick
 	Send, ^a
 	Send, {BS}
-	Sleep, 100
+	Sleep, 50
 
 
 	Mousemove, -900, 175
@@ -421,7 +421,7 @@ write_temp_femur(){
 	Send, {Space}
 	Send !{Tab}
 
-	Sleep, 100
+	Sleep, 50
 	Mousemove, 157, 819 ; Std Dev
 	MouseClick, ,,, 2 ; double click
 	Send ^c
@@ -431,7 +431,7 @@ write_temp_femur(){
 	Send, {Space}
 	Send !{Tab}
 
-	Sleep, 100
+	Sleep, 50
 	Mousemove, 157, 848 ; Area
 	MouseClick, ,,, 2 ; double click
 	Send ^c
@@ -441,7 +441,7 @@ write_temp_femur(){
 	Send, {Space}
 	Send !{Tab}
 
-	Sleep, 100
+	Sleep, 50
 	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
 	MouseClick
 }
@@ -460,7 +460,7 @@ write_temp_thigh(){
 	MouseClick
 	Send, ^a
 	Send, {BS}
-	Sleep, 100
+	Sleep, 50
 
 
 	Mousemove, -900, 175 
@@ -476,7 +476,7 @@ write_temp_thigh(){
 	Send, {Space}
 	Send !{Tab}
 
-	Sleep, 100
+	Sleep, 50
 	Mousemove, 157, 819 ; Std Dev
 	MouseClick, ,,, 2 ; double click
 	Send ^c
@@ -486,7 +486,7 @@ write_temp_thigh(){
 	Send, {Space}
 	Send !{Tab}
 
-	Sleep, 100
+	Sleep, 50
 	Mousemove, 157, 848 ; Area
 	MouseClick, ,,, 2 ; double click
 	Send ^c
@@ -496,7 +496,7 @@ write_temp_thigh(){
 	Send, {Space}
 	Send !{Tab}
 
-	Sleep, 100
+	Sleep, 50
 	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
 	MouseClick
 }
@@ -545,12 +545,12 @@ push_femur_data(){
 	Mousemove, 1482, 189 ; femur push button
 	MouseClick
 
-	Sleep, 200
+	Sleep, 50
 
 	Mousemove, -900, 175
 	MouseClick
 
-	Sleep, 100
+	Sleep, 50
 	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
 	MouseClick
 
@@ -575,22 +575,22 @@ push_thigh_data(){
 	Mousemove, 1651, 189 ; thigh push button
 	MouseClick
 
-	Sleep, 200
+	Sleep, 50
 
 	Mousemove, -900, 175
 	MouseClick
 
-	Sleep, 100
+	Sleep, 50
 	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
 	MouseClick
 
-	Sleep, 100
+	Sleep, 50
 
 	; Check if it moved well 
-	;MsgBox, % "femur_total_cnt: " femur_total_cnt ", thigh_total_cnt: " thigh_total_cnt
+	MsgBox, 4, , % "femur_total_cnt: " femur_total_cnt ", thigh_total_cnt: " thigh_total_cnt, 3
 	
 	if (femur_total_cnt = thigh_total_cnt){
-		;MsgBox, "same"
+		MsgBox, 4, , "same", 3
 		return 0
 	}else {
 		if(femur_area != thigh_area){
@@ -598,7 +598,7 @@ push_thigh_data(){
 			
 			little_move_to_right()
 
-			Sleep, 200	
+			Sleep, 50	
 			
 			push_thigh_data()
 		}else {
