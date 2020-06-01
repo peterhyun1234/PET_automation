@@ -8,6 +8,8 @@
 
 
 
+stopFlag = 0
+
 idIdx = 1
 idArray:= Object()
 currentID = 0
@@ -49,6 +51,8 @@ global femur_total_cnt
 global femur_std_dev 
 global femur_area 
 
+global stopFlag
+
 Gui,Submit,nohide
 
 ; name parsing needed
@@ -57,6 +61,14 @@ parsed_temp_window := StrSplit(Name, A_Space, ".")
 femur_total_cnt := parsed_temp_window[1]
 femur_std_dev := parsed_temp_window[2]
 femur_area := parsed_temp_window[3]
+
+MsgBox, 4, , % "femur_area: " femur_area , 3
+
+if (femur_area != 99 or femur_area != 100){
+	Msgbox, 4, , Area is not appropriate. Do you want to continue?
+	IfMsgBox No 
+		stopFlag = 1
+} 
 
 ;MsgBox % "TC is " femur_total_cnt ", std is " femur_std_dev ", area is " femur_area
 
@@ -165,6 +177,17 @@ return
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 s:: ; 5. if can, press each leg macro key
 
 write_temp_femur()
@@ -174,6 +197,12 @@ Sleep, 50
 push_femur_data()
 
 Sleep, 50
+
+if (stopFlag = 1){
+	initialize_count()
+	stopFlag = 0
+	return
+}
 
 move_to_thigh()
 
@@ -201,6 +230,23 @@ Sleep, 50
 close_reviews()
 
 return 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -587,7 +633,7 @@ push_thigh_data(){
 	Sleep, 50
 
 	; Check if it moved well 
-	MsgBox, 4, , % "femur_total_cnt: " femur_total_cnt ", thigh_total_cnt: " thigh_total_cnt, 3
+	; MsgBox, 4, , % "femur_total_cnt: " femur_total_cnt ", thigh_total_cnt: " thigh_total_cnt, 3
 	
 	if (femur_total_cnt = thigh_total_cnt){
 		MsgBox, 4, , "same", 3
@@ -666,7 +712,6 @@ initialize_count(){
 close_reviews(){
 
 	Mousemove, 262, 125
-	Sleep, 300
 	MouseClick
 	Sleep, 200
 	Send,{TAB}
@@ -675,6 +720,10 @@ close_reviews(){
 	Sleep, 200
 	Send, {Enter}
 
+	Sleep, 100
+
+	Mousemove, 540, -224
+	MouseClick
 }
 
 
