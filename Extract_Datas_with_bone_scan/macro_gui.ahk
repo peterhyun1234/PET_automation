@@ -10,6 +10,7 @@
 
 stopFlag = 0
 reIndicateFlag = 0
+sideOfleg = ""
 
 idIdx = 1
 idArray:= Object()
@@ -118,7 +119,11 @@ Msgbox, "Reading proccess complete"
 ;{
 ;	Msgbox, % "Element number" . index . " is " . element
 ;}
+
 return 
+
+
+
 
 
 g:: ; 2. when press some keys, then Search Id and
@@ -153,6 +158,18 @@ MouseClick
 idIdx ++
 
 return
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -191,7 +208,9 @@ return
 
 
 
-s:: ; 5. if can, press each leg macro key
+s:: ; 5. if can, press each leg macro key in left side
+
+sideOfleg = left
 
 write_temp_femur()
 
@@ -253,8 +272,6 @@ return
 
 
 
-
-
 d:: ; move ROI to right with Left leg
 
 	MouseClick
@@ -262,6 +279,18 @@ d:: ; move ROI to right with Left leg
 	MouseClickDrag, L, , , 5, 0, ,R
 
 return 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -290,10 +319,31 @@ return
 
 
 
+
+
+
+
+
+
+
+
+
 q:: ; delete Cards
 cardNum = 8
 closeCards(cardNum)
 return
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -327,13 +377,59 @@ return
 
 
 
-x:: ; move ROI from bone to muscle with right leg
 
-	MouseClick
-	Sleep, 200
-	MouseClickDrag, L, , , 85, 0, ,R
+
+
+
+x:: ; 5. if can, press each leg macro key in Right side
+
+sideOfleg = right
+
+write_temp_femur()
+
+Sleep, 50
+
+push_femur_data()
+
+Sleep, 50
+
+if (stopFlag = 1){
+	initialize_count()
+	stopFlag = 0
+	return
+}
+
+move_to_thigh() ; right leg
+
+Sleep, 50
+
+write_temp_thigh()
+
+Sleep, 50
+
+if( push_thigh_data() = 0){
+	MsgBox, "ROI was not moved!"
+	return
+}
+
+Sleep, 50
+
+write_statistics()
+
+Sleep, 50
+
+initialize_count()
+
+Sleep, 50
+
+close_reviews()
 
 return 
+
+
+
+
+
 
 
 
@@ -556,9 +652,17 @@ write_temp_thigh(){
 
 move_to_thigh(){
 
+	global sideOfLeg
+
+	if(sideOfleg = "right"){
+		moveTo = 85
+	}else{
+		moveTo= -85
+	}
+
 	MouseClick
 	Sleep, 200
-	MouseClickDrag, L, , , -85, 0, ,R
+	MouseClickDrag, L, , , %moveTo%, 0, ,R
 
 }
 
@@ -577,6 +681,14 @@ little_move_to_right(){
 
 }
 
+
+little_move_to_left(){
+
+	MouseClick
+	Sleep, 200
+	MouseClickDrag, L, , , -5, 0, ,R
+
+}
 
 
 
@@ -606,6 +718,8 @@ push_femur_data(){
 }
 
 push_thigh_data(){
+
+	global sideOfLeg
 
 	global reIndicateFlag
 
@@ -650,9 +764,13 @@ push_thigh_data(){
 				return
 			}
 
-			;MsgBox, "little_move_to_right"
-			MsgBox, 4, , % "femur_area: " femur_area ", thigh_area: " thigh_area, 3
-			little_move_to_right()
+			; MsgBox, 4, , % "femur_area: " femur_area ", thigh_area: " thigh_area, 3
+
+			if(sideOfleg = "right"){
+				little_move_to_left()
+			}else{
+				little_move_to_right()
+			}
 
 			Sleep, 50	
 			write_temp_thigh()
