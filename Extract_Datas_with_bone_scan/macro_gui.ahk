@@ -166,6 +166,7 @@ return
 s::
 
 Mousemove, 1612, 592
+
 MouseClick
 
 return
@@ -217,11 +218,9 @@ sideOfleg = left
 
 write_temp_femur()
 
-Sleep, 50
 
 push_femur_data()
 
-Sleep, 50
 
 if (stopFlag = 1){
 	initialize_count()
@@ -231,26 +230,21 @@ if (stopFlag = 1){
 
 move_to_thigh()
 
-Sleep, 50
 
 write_temp_thigh()
 
-Sleep, 50
 
 if( push_thigh_data() = 0){
 	MsgBox, "ROI was not moved!"
 	return
 }
 
-Sleep, 50
 
 write_statistics()
 
-Sleep, 50
 
 initialize_count()
 
-Sleep, 50
 
 close_reviews()
 
@@ -390,11 +384,9 @@ sideOfleg = right
 
 write_temp_femur()
 
-Sleep, 50
 
 push_femur_data()
 
-Sleep, 50
 
 if (stopFlag = 1){
 	initialize_count()
@@ -404,26 +396,20 @@ if (stopFlag = 1){
 
 move_to_thigh() ; right leg
 
-Sleep, 50
 
 write_temp_thigh()
-
-Sleep, 50
 
 if( push_thigh_data() = 0){
 	MsgBox, "ROI was not moved!"
 	return
 }
 
-Sleep, 50
 
 write_statistics()
 
-Sleep, 50
 
 initialize_count()
 
-Sleep, 50
 
 close_reviews()
 
@@ -444,35 +430,22 @@ return
 StartSetting(X, Y, Zoom, Bright){
 
 	Mousemove, 18, 780
-	Sleep, 50
 	MouseClick
-	Sleep, 50
 
 	Mousemove, 46, 662
-	Sleep, 50
 	MouseClick
 		
-	Sleep, 50
 	Send, %X%
-	Sleep, 50
 	Send, {Enter}
-	Sleep, 50
 	
 	Mousemove, 49, 775
-	Sleep, 50
 	MouseClick
-	Sleep, 50
 	Send, {BS}%Zoom%
-	Sleep, 50
 	Send, {Enter}
-	Sleep, 50
 
 	Mousemove, 248, 618
-	Sleep, 50
 	MouseClick, ,,, 2 ; double click
-	Sleep, 50
 	Send, %Bright%
-	Sleep, 50
 	Send, {Enter}
 }
 
@@ -491,9 +464,7 @@ Create_ROI(sideOfleg){
 	}
 
 	MouseClick, left, 19, 687
-	Sleep, 50
 	MouseClick, left, 61, 635
-	Sleep, 50
 
 	MouseClickDrag, L, 545, 580, 553, 617
 	Sleep, 200
@@ -506,13 +477,9 @@ Create_ROI(sideOfleg){
 
 open_statistics(){
 
-	Sleep, 50
 	Mousemove, 19, 646
-	Sleep, 50
 	MouseClick
-	Sleep, 50
 	MouseClick, left, 545, 580
-
 }
 
 
@@ -652,7 +619,6 @@ write_temp_thigh(){
 
 
 
-
 move_to_thigh(){
 
 	global sideOfLeg
@@ -662,6 +628,8 @@ move_to_thigh(){
 	}else{
 		moveTo= -85
 	}
+
+	Sleep, 50
 
 	MouseClick
 	Sleep, 200
