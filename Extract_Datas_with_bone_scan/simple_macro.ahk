@@ -1,4 +1,4 @@
-^a:: ; Start Settings with Left leg
+a:: ; Start Settings with Left leg
 
 X = -4
 Y = 0
@@ -20,7 +20,7 @@ return
 
 
 
-^s:: ; move ROI from bone to muscle with Left leg
+s:: ; move ROI from bone to muscle with Left leg
 
 	MouseClick
 	Sleep, 200
@@ -29,11 +29,17 @@ return
 return 
 
 
+d:: ; move ROI to right with Left leg
+
+	MouseClick
+	Sleep, 200
+	MouseClickDrag, L, , , 5, 0, ,R
+
+return 
 
 
 
-
-^f:: ; Switch Left leg to Right leg
+f:: ; Switch Left leg to Right leg
 
 Mousemove, 18, 780
 Sleep, 200
@@ -56,7 +62,7 @@ return
 
 
 
-^q:: ; delete Cards
+q:: ; delete Cards
 cardNum = 8
 closeCards(cardNum)
 return
@@ -66,7 +72,7 @@ return
 
 
 
-^z:: ; Start Settings with right leg
+z:: ; Start Settings with right leg
 
 X = 4
 Y = 0
@@ -89,7 +95,7 @@ return
 
 
 
-^x:: ; move ROI from bone to muscle with right leg
+x:: ; move ROI from bone to muscle with right leg
 
 	MouseClick
 	Sleep, 200
