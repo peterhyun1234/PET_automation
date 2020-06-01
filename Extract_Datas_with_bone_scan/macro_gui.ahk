@@ -126,7 +126,7 @@ return
 
 
 
-g:: ; 2. when press some keys, then Search Id and
+a:: ; 2. when press some keys, then Search Id and
 
 currentID := idArray[idIdx]
 
@@ -163,6 +163,12 @@ return
 
 
 
+s::
+
+Mousemove, 1612, 592
+MouseClick
+
+return
 
 
 
@@ -170,10 +176,7 @@ return
 
 
 
-
-
-
-a:: ; Start Settings with Left leg
+d:: ; Start Settings with Left leg
 
 X = -4
 Y = 0
@@ -208,7 +211,7 @@ return
 
 
 
-s:: ; 5. if can, press each leg macro key in left side
+f:: ; 5. if can, press each leg macro key in left side
 
 sideOfleg = left
 
@@ -272,7 +275,7 @@ return
 
 
 
-d:: ; move ROI to right with Left leg
+r:: ; move ROI to right with Left leg
 
 	MouseClick
 	Sleep, 200
@@ -296,7 +299,7 @@ return
 
 
 
-f:: ; Switch Left leg to Right leg
+t:: ; Switch Left leg to Right leg
 
 Mousemove, 18, 780
 Sleep, 200
