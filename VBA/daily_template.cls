@@ -1,12 +1,3 @@
-VERSION 1.0 CLASS
-BEGIN
-  MultiUse = -1  'True
-END
-Attribute VB_Name = "Sheet1"
-Attribute VB_GlobalNameSpace = False
-Attribute VB_Creatable = False
-Attribute VB_PredeclaredId = True
-Attribute VB_Exposed = True
 Sub change()
 
 Sheets("Sheet1").Select
@@ -25,9 +16,9 @@ cellarr(4) = 24
 
 
 '''''''''''''''''''''''''''''''
-Origin = "202005 Á¤¸®º».xlsm" '
+Origin = "202006 ì •ë¦¬ë³¸.xlsm" '
                               '
-WBS = "20200519"              '
+WBS = "20200601"              '
 WB = WBS + ".csv"             '
 '''''''''''''''''''''''''''''''
 
@@ -53,7 +44,7 @@ Workbooks(WB).Sheets(WBS).Range(Range_2).Copy Destination:=Workbooks(Origin).She
 
 Workbooks(Origin).Activate
 Sheets("Sheet1").Select
-StartRow = FinalRow
+StartRow = FinalRow + 1
 FinalRow = Cells(Rows.Count, 1).End(xlUp).Row
 Range_Sorting_1 = "F" & StartRow & ":F" & FinalRow
 Range_Sorting_2 = "A" & StartRow & ":X" & FinalRow
