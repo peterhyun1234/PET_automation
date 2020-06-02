@@ -14,6 +14,7 @@ sideOfleg = ""
 
 idIdx = 1
 idArray:= Object()
+idArrayLen = 0
 currentID = 0
 
 currentReadLine := ""
@@ -37,8 +38,10 @@ ypos = 0
 
 
 Gui, New, hwndhGui AlwaysOnTop
-Gui, Add, Text,, Temp window
+Gui, Add, Text,, Temp window %idIdx%
 Gui, Add, Edit, x21 y45 w500 h19 vName, Edit
+Gui, Add, Text, x21 y74 w100 h19 ,Process: 
+Gui, Add, Edit, x75 y70 w300 h19 vProcess,
 Gui, Add, Button, x50 y150 w100 h30 gPush_femur, read femur
 Gui, Add, Button, x220 y150 w100 h30 gPush_thigh, read thigh
 Gui, Show, x3300 y0
@@ -111,6 +114,7 @@ return
 Loop, Read, C:\Program Files\AutoHotkey\result_of\%idTxtName%
 {
 	idArray.insert(A_LoopReadLine)
+	idArrayLen++
 }
 
 Msgbox, "Reading proccess complete"
@@ -245,6 +249,7 @@ write_statistics()
 
 initialize_count()
 
+initialize_progress()
 
 close_reviews()
 
@@ -410,6 +415,7 @@ write_statistics()
 
 initialize_count()
 
+initialize_progress()
 
 close_reviews()
 
@@ -810,6 +816,27 @@ initialize_count(){
 
 }
 
+initialize_progress(){
+	
+	global idIdx
+	global idArrayLen
+
+	Mousemove, 1750, 100 ; temp Window
+	MouseClick
+	Send, ^a
+	Send, {BS}
+
+	Send, %idIdx%
+	Send, {Space}
+	Send, /
+	Send, {Space}
+	Send, %idArrayLen%
+	
+	Sleep, 50
+	Mousemove, -900, 175
+	MouseClick
+
+}
 
 
 close_reviews(){
