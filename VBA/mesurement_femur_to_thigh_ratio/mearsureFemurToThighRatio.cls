@@ -19,6 +19,19 @@ Function readTextFile()
     lineNum = 1
     
     Dim lineValue As String
+    
+    Dim ID
+    
+    Dim femurTotalCnt
+    Dim femurSD
+    Dim femurArea
+    
+    Dim thighTotalCnt
+    Dim thighSD
+    Dim thighArea
+    
+    Dim comments
+    
 
     Open path For Input As #1
         Do While Not EOF(1)
@@ -27,24 +40,39 @@ Function readTextFile()
             
             parsedLine = Split(lineValue)
             
-            Dim ID
+            ID = parsedLine(0)
             
-            Dim femurTotalCnt
-            Dim femurSD
-            Dim femurArea
+            Dim arrLen
             
-            Dim thighTotalCnt
-            Dim thighSD
-            Dim thighArea
-            
-            Dim comments
+            arrLen = UBound(parsedLine) - LBound(parsedLine) + 1
             
             ID = parsedLine(0)
             
-            If Len(parsedLine) < 3 Then
-            Debug.Print "Line value"; parsedLine; vbNewLine;
+            Dim idxOfID
+            
+            idxOfID = findIndexOf(ID)
+            
+            
+            If arrLen < 3 Then
+                ' Debug.Print idxOfID; "."; parsedLine(0); ": "; parsedLine(1); vbNewLine;
+                comments = parsedLine(1)
+                
+                Cells(idxOfID, 16).Value = comments
+                
+            Else
 
+                femurTotalCnt = parsedLine(1)
+                femurSD = parsedLine(2)
+                femurArea = parsedLine(3)
+                
+                thighTotalCnt = parsedLine(4)
+                thighSD = parsedLine(5)
+                thighArea = parsedLine(6)
+            
+            
             End If
+            
+            
             lineNum = lineNum + 1
         Loop
     Close #1
@@ -57,3 +85,26 @@ exmsg:
 
 End Function
 
+
+Function findIndexOf(ID)
+    'Debug.Print "function called with "; ID; vbNewLine;
+    Dim findedIdx
+    
+    Dim searchID As String
+    
+    Row = 0
+    
+    Do
+    DoEvents
+    
+        Row = Row + 1
+        searchID = ActiveSheet.UsedRange.Range("A" & Row)
+        If InStr(searchID, ID) > 0 Then
+            findedIdx = Row
+        End If
+        
+    Loop Until searchID = ""
+    
+    findIndexOf = findedIdx
+
+End Function
