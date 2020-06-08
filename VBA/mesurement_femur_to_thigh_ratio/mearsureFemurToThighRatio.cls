@@ -68,6 +68,14 @@ Function readTextFile()
                 thighTotalCnt = parsedLine(4)
                 thighSD = parsedLine(5)
                 thighArea = parsedLine(6)
+                
+                Cells(idxOfID, 8).Value = femurTotalCnt
+                Cells(idxOfID, 10).Value = femurSD
+                Cells(idxOfID, 11).Value = femurArea
+                
+                Cells(idxOfID, 12).Value = thighTotalCnt
+                Cells(idxOfID, 14).Value = thighSD
+                Cells(idxOfID, 15).Value = thighArea
             
             
             End If
