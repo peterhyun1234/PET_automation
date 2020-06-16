@@ -28,8 +28,8 @@ thigh_total_cnt = 0
 thigh_std_dev = 0
 thigh_area = 0
 
-idTxtName = March_ID.txt
-destTxtName = march_result.txt
+idTxtName = 202005\202005_ID.txt
+destTxtName = 202005\may_result.txt
 
 
 xpos = 0
@@ -40,7 +40,7 @@ ypos = 0
 Gui, New, hwndhGui AlwaysOnTop
 Gui, Add, Text,, Temp window %idIdx%
 Gui, Add, Edit, x21 y45 w500 h19 vName, Edit
-Gui, Add, Text, x21 y74 w100 h19 ,Process: 
+Gui, Add, Text, x21 y74 w100 h19 ,Progress: 
 Gui, Add, Edit, x75 y70 w300 h19 vProcess,
 Gui, Add, Button, x50 y150 w100 h30 gPush_femur, read femur
 Gui, Add, Button, x220 y150 w100 h30 gPush_thigh, read thigh
@@ -521,50 +521,40 @@ write_temp_femur(){
 
 	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
 
-	Mousemove, 1750, 77 ; temp Window
-	MouseClick
+	MouseClick, left, 1750, 77 ; temp Window
 	Send, ^a
 	Send, {BS}
 	Sleep, 50
 
 
-	Mousemove, -900, 175
-	MouseClick
+	MouseClick, left, -900, 175
 
-	
 
 	Mousemove, 157, 699 ; total count
 	MouseClick, ,,, 2 ; double click
 	Send ^c
-	Mousemove, 1750, 77 ; temp Window
-	MouseClick
+	MouseClick, left, 1750, 77 ; temp Window
 	Send ^v
 	Send, {Space}
-	Send !{Tab}
+	MouseClick, left, -1000, 225
 
-	Sleep, 50
 	Mousemove, 157, 819 ; Std Dev
 	MouseClick, ,,, 2 ; double click
 	Send ^c
-	Mousemove, 1750, 77 ; temp Window
-	MouseClick
+	MouseClick, left, 1750, 77 ; temp Window
 	Send ^v
 	Send, {Space}
-	Send !{Tab}
+	MouseClick, left, -1000, 225
 
-	Sleep, 50
 	Mousemove, 157, 848 ; Area
 	MouseClick, ,,, 2 ; double click
 	Send ^c
-	Mousemove, 1750, 77 ; temp Window
-	MouseClick
+	MouseClick, left, 1750, 77 ; temp Window
 	Send ^v
 	Send, {Space}
-	Send !{Tab}
+	MouseClick, left, -1000, 225
 
-	Sleep, 50
-	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
-	MouseClick
+	MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position
 }
 
 
@@ -577,8 +567,7 @@ write_temp_thigh(){
 
 	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
 
-	Mousemove, 1750, 77 ; temp Window
-	MouseClick
+	MouseClick, left, 1750, 77 ; temp Window
 	Send, ^a
 	Send, {BS}
 	Sleep, 50
@@ -591,35 +580,28 @@ write_temp_thigh(){
 	Mousemove, 157, 699 ; total count
 	MouseClick, ,,, 2 ; double click
 	Send ^c
-	Mousemove, 1750, 77 ; temp Window
-	MouseClick
+	MouseClick, left, 1750, 77 ; temp Window
 	Send ^v
 	Send, {Space}
-	Send !{Tab}
+	MouseClick, left, -1000, 225
 
-	Sleep, 50
 	Mousemove, 157, 819 ; Std Dev
 	MouseClick, ,,, 2 ; double click
 	Send ^c
-	Mousemove, 1750, 77 ; temp Window
-	MouseClick
+	MouseClick, left, 1750, 77 ; temp Window
 	Send ^v
 	Send, {Space}
-	Send !{Tab}
+	MouseClick, left, -1000, 225
 
-	Sleep, 50
 	Mousemove, 157, 848 ; Area
 	MouseClick, ,,, 2 ; double click
 	Send ^c
-	Mousemove, 1750, 77 ; temp Window
-	MouseClick
+	MouseClick, left, 1750, 77 ; temp Window
 	Send ^v
 	Send, {Space}
-	Send !{Tab}
+	MouseClick, left, -1000, 225
 
-	Sleep, 50
-	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
-	MouseClick
+	MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position
 }
 
 
@@ -680,17 +662,15 @@ push_femur_data(){
 
 	;MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
 
-	Mousemove, 1482, 189 ; femur push button
-	MouseClick
+	MouseClick, left, 1482, 189 ; femur push button
 
 	Sleep, 50
 
-	Mousemove, -900, 175
-	MouseClick
+	MouseClick, left, -900, 175
 
 	Sleep, 50
-	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
-	MouseClick
+	
+	MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position
 
 }
 
@@ -713,17 +693,14 @@ push_thigh_data(){
 	
 	MouseGetPos, xpos, ypos ; store position of mouse for move femur to thigh 
 
-	Mousemove, 1651, 189 ; thigh push button
-	MouseClick
+	MouseClick, left, 1651, 189 ; thigh push button
 
 	Sleep, 50
 
-	Mousemove, -900, 175
-	MouseClick
+	MouseClick, left, -900, 175
 
 	Sleep, 50
-	Mousemove, %xpos%, %ypos% ; return to origin of mouse position
-	MouseClick
+	MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position
 
 	Sleep, 50
 
@@ -757,6 +734,7 @@ push_thigh_data(){
 			reIndicateFlag ++
 
 		}else {
+			reIndicateFlag = 0
 			;MsgBox, "fine"
 			return 1
 		}
@@ -821,8 +799,7 @@ initialize_progress(){
 	global idIdx
 	global idArrayLen
 
-	Mousemove, 1750, 100 ; temp Window
-	MouseClick
+	MouseClick, left, 1750, 100 ; temp Window
 	Send, ^a
 	Send, {BS}
 
@@ -841,8 +818,8 @@ initialize_progress(){
 
 close_reviews(){
 
-	Mousemove, 262, 125
-	MouseClick
+	MouseClick, left, 262, 125
+
 	Sleep, 200
 	Send,{TAB}
 	Sleep, 200
@@ -852,8 +829,7 @@ close_reviews(){
 
 	Sleep, 100
 
-	Mousemove, -740, 50
-	MouseClick
+	MouseClick, left, -740, 50
 }
 
 
