@@ -27,14 +27,14 @@ Gui, Show, x1000 y800
 
 
 ; init exel file
-Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\202005_reviews.xlsx"
-IndexExcel := ComObjCreate("Excel.Application") ;오브젝트생성
-IndexExcel.Workbooks.Open(Indexpath) ;엑셀열기
-IndexExcel.Visible:= true  ;false     ;육안으로 보이게 할 지 설정
+; Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\202005_reviews.xlsx"
+; IndexExcel := ComObjCreate("Excel.Application") ;오브젝트생성
+; IndexExcel.Workbooks.Open(Indexpath) ;엑셀열기
+; IndexExcel.Visible:= true  ;false     ;육안으로 보이게 할 지 설정
 
-IndexExcel.ActiveWorkbook.Save() ;저장
-IndexExcel.ActiveWorkBook.Close  ;닫기
-IndexExcel.Quit ;오브젝트종료
+; IndexExcel.ActiveWorkbook.Save() ;저장
+; IndexExcel.ActiveWorkBook.Close  ;닫기
+; IndexExcel.Quit ;오브젝트종료
 
 
 
@@ -54,7 +54,6 @@ Load_data:
 	global currentAllComments
 
 	Gui,Submit,nohide
-
 
 	temp_window := StrSplit(MyEdit, "***********************************************************************************", ".")
 
@@ -88,9 +87,18 @@ Load_data:
 	; MsgBox, 4, , % temp_approver[1] , 3
 
 	currentApprover := temp_approver[1]
-		
-	IndexExcel.ActiveWorkbook.Save() ;저장
 
+
+
+	Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\202005_reviews.xlsx"
+	IndexExcel := ComObjCreate("Excel.Application") ;오브젝트생성
+	IndexExcel.Workbooks.Open(Indexpath) ;엑셀열기
+	IndexExcel.Visible:= false  ;true     ;육안으로 보이게 할 지 설정
+
+	IndexExcel.Cells(2,1).Value := currentId
+	IndexExcel.Cells(2,2).Value := currentApprover
+	IndexExcel.Cells(2,3).Value := currentCI
+	IndexExcel.Cells(2,4).Value := currentAllComments
 
 return
 
@@ -98,14 +106,8 @@ return
 
 ^ESC::
 
-	IndexExcel.ActiveWorkbook.Save() ;저장
-	IndexExcel.ActiveWorkBook.Close  ;닫기
-	IndexExcel.Quit ;오브젝트종료
 	ExitApp
 
 GuiClose:
 	
-	IndexExcel.ActiveWorkbook.Save() ;저장
-	IndexExcel.ActiveWorkBook.Close  ;닫기
-	IndexExcel.Quit ;오브젝트종료
 	ExitApp
