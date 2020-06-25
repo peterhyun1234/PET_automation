@@ -11,6 +11,8 @@ currentApprover := ""
 currentCI := ""
 currentAllComments := ""
 
+duplicateFlag = false
+
 currentIdx = 0
 
 
@@ -55,6 +57,8 @@ Load_data:
 	global currentCI
 	global currentAllComments
 
+	global duplicateFlag
+
 	Gui,Submit,nohide
 
 	temp_window := StrSplit(MyEdit, "***********************************************************************************", ".")
@@ -75,13 +79,17 @@ Load_data:
 
 
 	; 3. attributes에서 ID, Approver 뽑아내기
-	;    - 이때 이전 ID랑 같은지 검사해서 같으면 파일의 끝으로 인식 ㄱㄱ
+	;    - 이때 이전 ID랑 같은지 검사해서 같으면 파일의 끝으로 인식 ㄱㄱ by using duplicateFlag
 	temp_attributes := StrSplit(attributes, "Patient Name / ID :", ".")
 	tattributes := StrSplit(temp_attributes[2], "/ ", ".")
 	tempID := StrSplit(tattributes[2], "`n", ".")
 
-	; MsgBox, 4, , % tempID[1] , 3
-	currentId := tempID[1]
+	if (currentId = tempID[1]){
+		duplicateFlag := true
+	}else{
+		; MsgBox, 4, , % tempID[1] , 3
+		currentId := tempID[1]
+	}
 
 	temp_attributes := StrSplit(attributes, "Approver : ", ".")
 	temp_approver := StrSplit(temp_attributes[2], "`n", ".")
@@ -93,32 +101,49 @@ Load_data:
 
 	; bring EOF to idx
 
+	if (currentAllComments = "빈칸"){
+		MsgBox, 4, , % "currentAllComments = 빈칸" , 1
+	}else{
+
+		Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\202005_reviews.xlsx"
+		IndexExcel := ComObjCreate("Excel.Application") ;오브젝트생성
+		IndexExcel.Workbooks.Open(Indexpath) ;엑셀열기
+		IndexExcel.Visible:= false  ;true     ;육안으로 보이게 할 지 설정
+
+		; currentIdx := 
+		LastRow := IndexExcel.Cells.SpecialCells(11).Row
+
+		; MsgBox, 4, , % "lastrow is " LastRow , 3
+
+		IndexExcel.Cells(LastRow + 1,1).Value := currentId
+		IndexExcel.Cells(LastRow + 1,2).Value := currentApprover
+		IndexExcel.Cells(LastRow + 1,3).Value := currentCI
+		IndexExcel.Cells(LastRow + 1,4).Value := currentAllComments
 
 
-	Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\202005_reviews.xlsx"
-	IndexExcel := ComObjCreate("Excel.Application") ;오브젝트생성
-	IndexExcel.Workbooks.Open(Indexpath) ;엑셀열기
-	IndexExcel.Visible:= false  ;true     ;육안으로 보이게 할 지 설정
+		IndexExcel.ActiveWorkbook.Save() ;저장
+		IndexExcel.ActiveWorkBook.Close  ;닫기
+		IndexExcel.Quit ;오브젝트종료
 
-	; currentIdx := 
-	LastRow := IndexExcel.Cells.SpecialCells(11).Row
+		;MsgBox, 4, , % "lastrow is " LastRow , 1
+	}
 
-	; MsgBox, 4, , % "lastrow is " LastRow , 3
-
-	IndexExcel.Cells(LastRow + 1,1).Value := currentId
-	IndexExcel.Cells(LastRow + 1,2).Value := currentApprover
-	IndexExcel.Cells(LastRow + 1,3).Value := currentCI
-	IndexExcel.Cells(LastRow + 1,4).Value := currentAllComments
-
-
-	IndexExcel.ActiveWorkbook.Save() ;저장
-	IndexExcel.ActiveWorkBook.Close  ;닫기
-	IndexExcel.Quit ;오브젝트종료
-
-	MsgBox, 4, , % "lastrow is " LastRow , 1
 
 return
 
+
+
+^s:: ; 판독문 따오기 시작
+
+	currentID := idArray[idIdx]
+
+	if duplicateFlag
+	{
+		MsgBox, 4, , % "Duplication occured in ID, Process end" , 2
+	}else{
+		
+	}
+return
 
 
 ^ESC::
