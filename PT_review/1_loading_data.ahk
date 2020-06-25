@@ -11,6 +11,8 @@ currentApprover := ""
 currentCI := ""
 currentAllComments := ""
 
+currentIdx = 0
+
 
 reviewFileName = 202005\202005_reviews.xlsx
 
@@ -89,16 +91,31 @@ Load_data:
 	currentApprover := temp_approver[1]
 
 
+	; bring EOF to idx
+
+
 
 	Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\202005_reviews.xlsx"
 	IndexExcel := ComObjCreate("Excel.Application") ;오브젝트생성
 	IndexExcel.Workbooks.Open(Indexpath) ;엑셀열기
 	IndexExcel.Visible:= false  ;true     ;육안으로 보이게 할 지 설정
 
-	IndexExcel.Cells(2,1).Value := currentId
-	IndexExcel.Cells(2,2).Value := currentApprover
-	IndexExcel.Cells(2,3).Value := currentCI
-	IndexExcel.Cells(2,4).Value := currentAllComments
+	; currentIdx := 
+	LastRow := IndexExcel.Cells.SpecialCells(11).Row
+
+	; MsgBox, 4, , % "lastrow is " LastRow , 3
+
+	IndexExcel.Cells(LastRow + 1,1).Value := currentId
+	IndexExcel.Cells(LastRow + 1,2).Value := currentApprover
+	IndexExcel.Cells(LastRow + 1,3).Value := currentCI
+	IndexExcel.Cells(LastRow + 1,4).Value := currentAllComments
+
+
+	IndexExcel.ActiveWorkbook.Save() ;저장
+	IndexExcel.ActiveWorkBook.Close  ;닫기
+	IndexExcel.Quit ;오브젝트종료
+
+	MsgBox, 4, , % "lastrow is " LastRow , 1
 
 return
 
