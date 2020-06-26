@@ -3,15 +3,16 @@
 ; 3. 
 
 
+xpos := ""
+ypos := ""
 
 
-
-currentId := ""
+currentId := "sample"
 currentApprover := ""
 currentCI := ""
 currentAllComments := ""
 
-duplicateFlag = false
+duplicateFlag := false
 
 currentIdx = 0
 
@@ -20,8 +21,8 @@ reviewFileName = 202005\202005_reviews.xlsx
 
 
 Gui, New, hwndhGui AlwaysOnTop
-Gui, Add, Text, x21 y34 w100 h19 ,Progress 
-Gui, Add, Edit, x75 y30 w300 h19 vProcess,
+Gui, Add, Text, x21 y34 w100 h19 ,Date 
+Gui, Add, Edit, x75 y30 w300 h19 vStudy_Date,
 Gui, Add, Text, x21 y74 w100 h19 ,Contents 
 Gui, Add, Edit, x75 y70 w400 h300 vMyEdit, 빈칸
 Gui, Add, Button, x220 y400 w100 h30 gLoad_data, load reviews
@@ -125,25 +126,136 @@ Load_data:
 		IndexExcel.ActiveWorkBook.Close  ;닫기
 		IndexExcel.Quit ;오브젝트종료
 
-		;MsgBox, 4, , % "lastrow is " LastRow , 1
+		MsgBox, 4, , % "ID: " currentId " completed"  , 1
 	}
 
+	; initialize values
+	currentId := ""
+	currentApprover := ""
+	currentCI := ""
+	currentAllComments := ""
+
+return
+
+
+^1:: ; 판독문 따오기 세팅
+
+	studyTerm = 10
+
+	MouseClick, left, 1100, 864
+	Send, ^a
+	Send, ^c
+
+	MouseClick, left, -332, -621
+	Send, ^v
+
+	MouseClick, left, 833, 180
+	Send, PT
+
+	MouseClick, left, 1498, 160
+
+	MouseClick, left, 1318, 468
+
+	; 스크롤 10번 	
+	while(studyTerm != 0){
+        MouseClick, WheelDown, , , 50
+        Sleep, 2000
+        studyTerm --
+    }
+
+	MouseClick, left, 1095, 208
+	Sleep, 1000
+	MouseClick
+
+	MouseClick, left, 1400, 208
+	Sleep, 1000
+	MouseClick
+
+	MsgBox, 4, , "Setting End" , 2
 
 return
 
 
 
-^s:: ; 판독문 따오기 시작
+^2:: ; 판독문 따오기 시작
 
-	currentID := idArray[idIdx]
-
-	if duplicateFlag
+	Loop, 5
 	{
-		MsgBox, 4, , % "Duplication occured in ID, Process end" , 2
-	}else{
-		
+		if duplicateFlag
+		{
+			MsgBox, 4, , % "Duplication occured in ID, Process end" , 2
+			break
+		}else{
+			
+			MouseGetPos, xpos, ypos ; store position
+
+			;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
+
+			MouseClick, left, 200, 1240
+			; shift 누른 상태에서
+			SENDINPUT {SHIFT DOWN}
+			; 스크롤 내리고
+			MouseClick, left, 562, 1958
+
+			SENDINPUT {SHIFT UP}
+
+			Send, ^c
+
+			MouseClick, left, 1150, 900
+			Send, ^a
+			Send, ^v
+
+			Sleep, 200
+
+			ypos := ypos + 25
+
+			;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
+
+			MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
+
+			Sleep, 500
+		}
 	}
+
+	
 return
+
+3::
+
+	CoordMode, Mouse, Screen
+	
+	Loop, 1
+	{
+
+		MouseGetPos, xpos, ypos ; store position
+
+		;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
+
+		MouseClick, left, 200, 1240
+		; shift 누른 상태에서
+		SENDINPUT {SHIFT DOWN}
+		; 스크롤 내리고
+		MouseClick, left, 562, 1958
+
+		SENDINPUT {SHIFT UP}
+
+		Send, ^c
+
+		MouseClick, left, 1150, 900
+		Send, ^a
+		Send, ^v
+
+		Sleep, 500
+
+		ypos := ypos + 25
+
+		;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
+
+		MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
+	}
+
+return
+
 
 
 ^ESC::
