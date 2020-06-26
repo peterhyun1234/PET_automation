@@ -179,7 +179,9 @@ return
 
 ^2:: ; 판독문 따오기 시작
 
-	Loop, 5
+	Coordmode,Mouse,Screen
+
+	Loop, 10
 	{
 		if duplicateFlag
 		{
@@ -192,9 +194,16 @@ return
 			;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
 
 			MouseClick, left, 200, 1240
+
+			MouseClick, WheelDown, , , 70
+			Sleep, 2000
+
 			; shift 누른 상태에서
 			SENDINPUT {SHIFT DOWN}
+
+			Sleep, 200
 			; 스크롤 내리고
+
 			MouseClick, left, 562, 1958
 
 			SENDINPUT {SHIFT UP}
@@ -207,11 +216,24 @@ return
 
 			Sleep, 200
 
+
 			ypos := ypos + 25
+			
+			if (ypos > 770) ; end of scroll
+			{
+				MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
 
-			;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
+				MouseClick, WheelDown, , , 50 ; scroll
+				Sleep, 2000
+				ypos := ypos - 75
+				
+				MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
+			}else{
+				;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
 
-			MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
+				MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
+			}
+
 
 			Sleep, 500
 		}
@@ -220,41 +242,6 @@ return
 	
 return
 
-3::
-
-	CoordMode, Mouse, Screen
-	
-	Loop, 1
-	{
-
-		MouseGetPos, xpos, ypos ; store position
-
-		;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
-
-		MouseClick, left, 200, 1240
-		; shift 누른 상태에서
-		SENDINPUT {SHIFT DOWN}
-		; 스크롤 내리고
-		MouseClick, left, 562, 1958
-
-		SENDINPUT {SHIFT UP}
-
-		Send, ^c
-
-		MouseClick, left, 1150, 900
-		Send, ^a
-		Send, ^v
-
-		Sleep, 500
-
-		ypos := ypos + 25
-
-		;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
-
-		MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
-	}
-
-return
 
 
 
