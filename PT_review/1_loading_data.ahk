@@ -177,6 +177,8 @@ return
 
 
 
+
+
 ^2:: ; 판독문 따오기 시작
 
 	Coordmode,Mouse,Screen
@@ -195,13 +197,22 @@ return
 
 			MouseClick, left, 200, 1240
 
-			MouseClick, WheelDown, , , 70
-			Sleep, 2000
+			Send {WheelDown}
+			Sleep, 200
+			Send {WheelDown}
+			Sleep, 200
+			Send {WheelDown}
+			Sleep, 200
+			Send {WheelDown}
+			Sleep, 200
+			Send {WheelDown}
+			Sleep, 200
+
 
 			; shift 누른 상태에서
 			SENDINPUT {SHIFT DOWN}
 
-			Sleep, 200
+			
 			; 스크롤 내리고
 
 			MouseClick, left, 562, 1958
@@ -217,22 +228,30 @@ return
 			Sleep, 200
 
 
-			ypos := ypos + 25
-			
-			if (ypos > 770) ; end of scroll
-			{
-				MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
+			ypos := ypos + 20
 
-				MouseClick, WheelDown, , , 50 ; scroll
+			;;여기서 듀플리케이트 걷어내야함!!!!
+
+			if (ypos > 752) ; end of scroll
+			{
+				MouseClick, left, %xpos%, %ypos%
 				Sleep, 2000
-				ypos := ypos - 75
+				MouseClick
+				Sleep, 2000
+				
+				Loop, 24
+				{
+					Send, {Down}
+					Sleep, 1000
+				}
+
+				ypos := 230
 				
 				MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
 			}else{
-				;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
-
-				MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
+				MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position
 			}
+
 
 
 			Sleep, 500
