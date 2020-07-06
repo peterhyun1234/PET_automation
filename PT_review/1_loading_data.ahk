@@ -18,7 +18,7 @@ inputEndID := ""
 currentIdx = 0
 
 
-reviewFileName = F:\Nuclear Medicine\판독문 정리\process_1\202005\may_reviews.txt
+reviewFileName = F:\Nuclear Medicine\판독문 정리\process_1\may_reviews.txt
 
 
 Gui, New, hwndhGui AlwaysOnTop
@@ -72,13 +72,15 @@ Load_data:
 	tattributes := StrSplit(temp_attributes[2], "/ ", ".")
 	tempID := StrSplit(tattributes[2], "`n", ".")
 	
-	MsgBox, 4, , % "inputEndID: " inputEndID ", tempID: " tempID[1], 2
+	; MsgBox, 4, , % "inputEndID: " inputEndID ", tempID: " tempID[1], 2
 
 	if (tempID[1] = inputEndID){
-		MsgBox, 4, , % "inputEndID: " inputEndID ", tempID: " tempID[1] " endFlag changed", 3
 
-		if progress != 0
+		if (progress != 0){
 			endFlag := 1
+			MsgBox, 4, , % "inputEndID: " inputEndID ", tempID: " tempID[1] " endFlag changed", 3
+			currentId := tempID[1]
+		}
 		
 	}else{
 		; MsgBox, 4, , % tempID[1] , 3
@@ -123,7 +125,7 @@ Load_data:
 		; IndexExcel.ActiveWorkBook.Close  ;닫기
 		; IndexExcel.Quit ;오브젝트종료
 
-		MsgBox, 4, , % "ID: " currentId " completed"  , 1
+		; MsgBox, 4, , % "ID: " currentId " completed"  , 1
 		progress = progress + 1
 	}
 
@@ -193,67 +195,111 @@ return
 
 	Coordmode,Mouse,Screen
 
-	Loop, 100
+	Loop
 	{
-		MsgBox, 4, , % endFlag , 2
-		if endFlag = 1
+
+		MouseGetPos, xpos, ypos ; store position
+
+		;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
+
+		MouseClick, left, 200, 1240
+
+		Send {WheelDown}
+		Sleep, 200
+		Send {WheelDown}
+		Sleep, 200
+		Send {WheelDown}
+		Sleep, 200
+		Send {WheelDown}
+		Sleep, 200
+		Send {WheelDown}
+		Sleep, 200
+
+
+		; shift 누른 상태에서
+		SENDINPUT {SHIFT DOWN}
+		Sleep, 200
+		
+		
+		; 스크롤 내리고
+
+		MouseClick, left, 562, 1958
+		Sleep, 200
+
+		SENDINPUT {SHIFT UP}
+		Sleep, 200
+
+		Send, ^c
+		Sleep, 200
+		
+		MouseClick, left, 1154, 1050
+		Send, ^a
+		Send, ^v
+
+		Sleep, 200
+
+		; load reviews btn
+		MouseClick, left, 1269, 1320
+
+		Sleep, 200
+
+		ypos := ypos + 22
+
+		;;여기서 듀플리케이트 걷어내야함!!!!
+
+		if (ypos > 752) ; end of scroll
 		{
-			MsgBox, 4, , % "Duplication occured in ID, Process end" , 2
-			break
-		}else{
-			
-			MouseGetPos, xpos, ypos ; store position
+			MouseClick, left, %xpos%, %ypos%
 
-			;MsgBox, 4, , % "ypos: " ypos ", xpos: " xpos, 2
-
-			MouseClick, left, 200, 1240
-
-			Send {WheelDown}
-			Sleep, 200
-			Send {WheelDown}
-			Sleep, 200
-			Send {WheelDown}
-			Sleep, 200
-			Send {WheelDown}
-			Sleep, 200
-			Send {WheelDown}
-			Sleep, 200
-
-
-			; shift 누른 상태에서
-			SENDINPUT {SHIFT DOWN}
-			Sleep, 200
-			
-			
-			; 스크롤 내리고
-
-			MouseClick, left, 562, 1958
-			Sleep, 200
-
-			SENDINPUT {SHIFT UP}
-			Sleep, 200
-
-			Send, ^c
-			Sleep, 200
-			
-			MouseClick, left, 1154, 1050
-			Send, ^a
-			Send, ^v
-
-			Sleep, 200
-
-			; load reviews btn
-			MouseClick, left, 1269, 1320
-
-			Sleep, 200
-
-			ypos := ypos + 20
-
-			;;여기서 듀플리케이트 걷어내야함!!!!
-
-			if (ypos > 752) ; end of scroll
+			if endFlag = 1
 			{
-				MouseClick, left, %xpos%, %ypos%
+				MouseClick, left, 200, 1240
+
+				Send {WheelDown}
+				Sleep, 200
+				Send {WheelDown}
+				Sleep, 200
+				Send {WheelDown}
+				Sleep, 200
+				Send {WheelDown}
+				Sleep, 200
+				Send {WheelDown}
+				Sleep, 200
+
+
+				; shift 누른 상태에서
+				SENDINPUT {SHIFT DOWN}
+				Sleep, 200
+				
+				
+				; 스크롤 내리고
+
+				MouseClick, left, 562, 1958
+				Sleep, 200
+
+				SENDINPUT {SHIFT UP}
+				Sleep, 200
+
+				Send, ^c
+				Sleep, 200
+				
+				MouseClick, left, 1154, 1050
+				Send, ^a
+				Send, ^v
+
+				Sleep, 200
+
+				; load reviews btn
+				MouseClick, left, 1269, 1320
+
+				Sleep, 200
+
+				MsgBox, 4, , % "Duplication occured in ID, Process end" , 2
+
+				break
+
+			}else{
+
 				Sleep, 2000
 				MouseClick
 				Sleep, 2000
@@ -267,13 +313,15 @@ return
 				ypos := 230
 				
 				MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position + y
-			}else{
-				MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position
 			}
 
-			Sleep, 500
+		}else{
+			MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position
 		}
 	}
+
+
+MsgBox, 4, , % "Parsing Process end" , 2
 
 	
 return
