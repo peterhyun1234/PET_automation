@@ -18,7 +18,7 @@ inputEndID := ""
 currentIdx = 0
 
 
-reviewFileName = 202005\202005_reviews.xlsx
+reviewFileName = F:\Nuclear Medicine\판독문 정리\process_1\202005\may_reviews.txt
 
 
 Gui, New, hwndhGui AlwaysOnTop
@@ -99,8 +99,8 @@ Load_data:
 		MsgBox, 4, , % "currentAllComments = 빈칸" , 1
 	}else{
 
+		FileAppend, ID: %currentId% `nApprover: %currentApprover% `nCI: %currentCI% `nAllComments: %currentAllComments%///`n, %reviewFileName%
 
-		
 
 		; Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\test2.xlsx"
 		; IndexExcel := ComObjCreate("Excel.Application") ;오브젝트생성
@@ -277,7 +277,6 @@ return
 
 	
 return
-
 
 
 
