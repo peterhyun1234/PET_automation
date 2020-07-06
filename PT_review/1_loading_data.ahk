@@ -12,7 +12,8 @@ currentApprover := ""
 currentCI := ""
 currentAllComments := ""
 
-endFlag := false
+progress := 0
+endFlag := 0
 inputEndID := ""
 currentIdx = 0
 
@@ -75,7 +76,10 @@ Load_data:
 
 	if (tempID[1] = inputEndID){
 		MsgBox, 4, , % "inputEndID: " inputEndID ", tempID: " tempID[1] " endFlag changed", 3
-		endFlag := true
+
+		if progress != 0
+			endFlag := 1
+		
 	}else{
 		; MsgBox, 4, , % tempID[1] , 3
 		currentId := tempID[1]
@@ -95,7 +99,7 @@ Load_data:
 		MsgBox, 4, , % "currentAllComments = 빈칸" , 1
 	}else{
 
-		Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\202005_reviews.xlsx"
+		Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\test_reviews.xlsx"
 		IndexExcel := ComObjCreate("Excel.Application") ;오브젝트생성
 		IndexExcel.Workbooks.Open(Indexpath) ;엑셀열기
 		IndexExcel.Visible:= false  ;true     ;육안으로 보이게 할 지 설정
@@ -103,7 +107,7 @@ Load_data:
 		; currentIdx := 
 		LastRow := IndexExcel.Cells.SpecialCells(11).Row
 
-		; MsgBox, 4, , % "lastrow is " LastRow , 3
+		MsgBox, 4, , % "lastrow is " LastRow , 2
 
 		IndexExcel.Cells(LastRow + 1,1).Value := currentId
 		IndexExcel.Cells(LastRow + 1,2).Value := currentApprover
@@ -116,6 +120,7 @@ Load_data:
 		IndexExcel.Quit ;오브젝트종료
 
 		MsgBox, 4, , % "ID: " currentId " completed"  , 1
+		progress = progress + 1
 	}
 
 	; initialize values
@@ -129,21 +134,33 @@ return
 
 ^1:: ; 판독문 따오기 세팅
 
+	Coordmode,Mouse,Screen
+
 	studyTerm = 10
 
-	MouseClick, left, 1100, 864
+	MouseClick, left, 1226, 900
 	Send, ^a
 	Send, ^c
 
-	MouseClick, left, -332, -621
+	Sleep, 200
+
+	MouseClick, left, 727, 181
 	Send, ^v
 
-	MouseClick, left, 833, 180
+	Sleep, 200
+
+	MouseClick, left, 833, 181
 	Send, PT
 
-	MouseClick, left, 1498, 160
+	Sleep, 200
+
+	MouseClick, left, 1500, 150
+	
+	Sleep, 200
 
 	MouseClick, left, 1318, 468
+
+	Sleep, 200
 
 	; 스크롤 10번 	
 	while(studyTerm != 0){
@@ -174,7 +191,8 @@ return
 
 	Loop, 100
 	{
-		if endFlag = true
+		MsgBox, 4, , % endFlag , 2
+		if endFlag = 1
 		{
 			MsgBox, 4, , % "Duplication occured in ID, Process end" , 2
 			break
@@ -200,26 +218,30 @@ return
 
 			; shift 누른 상태에서
 			SENDINPUT {SHIFT DOWN}
-
+			Sleep, 200
+			
 			
 			; 스크롤 내리고
 
 			MouseClick, left, 562, 1958
+			Sleep, 200
 
 			SENDINPUT {SHIFT UP}
+			Sleep, 200
 
 			Send, ^c
-
+			Sleep, 200
+			
 			MouseClick, left, 1154, 1050
 			Send, ^a
 			Send, ^v
 
-			Sleep, 1000
+			Sleep, 200
 
 			; load reviews btn
 			MouseClick, left, 1269, 1320
 
-			Sleep, 1000
+			Sleep, 200
 
 			ypos := ypos + 20
 
@@ -244,8 +266,6 @@ return
 			}else{
 				MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position
 			}
-
-
 
 			Sleep, 500
 		}
