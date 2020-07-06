@@ -99,25 +99,29 @@ Load_data:
 		MsgBox, 4, , % "currentAllComments = 빈칸" , 1
 	}else{
 
-		Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\test_reviews.xlsx"
-		IndexExcel := ComObjCreate("Excel.Application") ;오브젝트생성
-		IndexExcel.Workbooks.Open(Indexpath) ;엑셀열기
-		IndexExcel.Visible:= false  ;true     ;육안으로 보이게 할 지 설정
 
-		; currentIdx := 
-		LastRow := IndexExcel.Cells.SpecialCells(11).Row
+		
 
-		MsgBox, 4, , % "lastrow is " LastRow , 2
+		; Indexpath:= "F:\Nuclear Medicine\판독문 정리\process_1\202005\test2.xlsx"
+		; IndexExcel := ComObjCreate("Excel.Application") ;오브젝트생성
+		; IndexExcel.Workbooks.Open(Indexpath) ;엑셀열기
+		; IndexExcel.Visible:= false  ;true     ;육안으로 보이게 할 지 설정
 
-		IndexExcel.Cells(LastRow + 1,1).Value := currentId
-		IndexExcel.Cells(LastRow + 1,2).Value := currentApprover
-		IndexExcel.Cells(LastRow + 1,3).Value := currentCI
-		IndexExcel.Cells(LastRow + 1,4).Value := currentAllComments
+		; ; currentIdx := 
+		; ; LastRow := IndexExcel.Cells.SpecialCells(11).Row
+		; LastRow := IndexExcel.Sheets(1).UsedRange.Rows.Count
+
+		; MsgBox, 4, , % "lastrow is " LastRow , 2
+
+		; IndexExcel.Cells(LastRow + 1,1).Value := currentId
+		; IndexExcel.Cells(LastRow + 1,2).Value := currentApprover
+		; IndexExcel.Cells(LastRow + 1,3).Value := currentCI
+		; IndexExcel.Cells(LastRow + 1,4).Value := currentAllComments
 
 
-		IndexExcel.ActiveWorkbook.Save() ;저장
-		IndexExcel.ActiveWorkBook.Close  ;닫기
-		IndexExcel.Quit ;오브젝트종료
+		; IndexExcel.ActiveWorkbook.Save() ;저장
+		; IndexExcel.ActiveWorkBook.Close  ;닫기
+		; IndexExcel.Quit ;오브젝트종료
 
 		MsgBox, 4, , % "ID: " currentId " completed"  , 1
 		progress = progress + 1
