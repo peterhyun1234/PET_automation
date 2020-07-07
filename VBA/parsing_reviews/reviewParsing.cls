@@ -5,20 +5,11 @@ FinalRow = Cells(Rows.Count, 1).End(xlUp).Row
 
 Columns("A:Z").Hidden = False
 
-Dim sel As Integer
-Dim cellarr(1 To 4) As Integer
-
-cellarr(1) = 9
-cellarr(2) = 1
-cellarr(3) = 15
-cellarr(4) = 24
-
-
 
 ''''''''''''''''''''''''''''''''''''''
 Origin = "202005_review_result.xlsm" '
                                      '
-WBS = "202005_reviews"               '
+WBS = "202005_reviews_2"             '
 WB = WBS + ".csv"                    '
 ''''''''''''''''''''''''''''''''''''''
 
@@ -28,17 +19,13 @@ Workbooks(WB).Activate
 Sheets(WBS).Select
 lastRow = Workbooks(WB).Sheets(WBS).Cells(Rows.Count, 1).End(xlUp).Row
 
-LastCell_1 = "G" & lastRow
-LastCell_2 = "H" & lastRow
+LastCell_1 = "J" & lastRow
 
 Range_1 = "A2:" & LastCell_1
-Range_2 = "H2:" & LastCell_2
 
 Dest_1 = "A" & FinalRow + 1
-Dest_2 = "Q" & FinalRow + 1
 
 Workbooks(WB).Sheets(WBS).Range(Range_1).Copy Destination:=Workbooks(Origin).Sheets("sheet1").Range(Dest_1)
-Workbooks(WB).Sheets(WBS).Range(Range_2).Copy Destination:=Workbooks(Origin).Sheets("sheet1").Range(Dest_2)
 
 
 Workbooks(Origin).Activate
@@ -59,33 +46,27 @@ Cells(i, 1).Value = Right("0000000" & num0, 7)
     
     For i = StartRow To FinalRow
     
-    Cells(i, 1).NumberFormat = "@"
-    Dim num As String
-    num = Cells(i, 1)
-    Cells(i, 1).Value = Right("0000000" & num, 7)
-    
+        Cells(i, 1).NumberFormat = "@"
+        Dim num As String
+        num = Cells(i, 1)
+        Cells(i, 1).Value = Right("0000000" & num, 7)
         
-    If Right(Cells(i, 4).Value, 1) = "Y" Then Cells(i, 4).Value = Left(Cells(i, 4).Value, 3)
-    If Right(Cells(i, 4).Value, 1) = "M" Then Cells(i, 4).Value = Left(Cells(i, 4).Value, 3) + (Mid(Cells(i, 4).Value, 5, 3) / 12)
-    
-    
-    If Cells(i, 17).Value = "XE22" Then Cells(i, 17).Value = "Infi"
-    If Cells(i, 17).Value = "XE42" Then Cells(i, 17).Value = "NMCT670"
-    If Cells(i, 17).Value = "SYMBIAE1429" Then Cells(i, 17).Value = "Sym"
-    If Cells(i, 17).Value = "XE12" Then Cells(i, 17).Value = "NM830"
-    
-     
-     
-        For j = 1 To 4
+            
+        If Right(Cells(i, 4).Value, 1) = "Y" Then Cells(i, 4).Value = Left(Cells(i, 4).Value, 3)
+        If Right(Cells(i, 4).Value, 1) = "M" Then Cells(i, 4).Value = Left(Cells(i, 4).Value, 3) + (Mid(Cells(i, 4).Value, 5, 3) / 12)
         
-        sel = cellarr(j)
-                
-           If Cells(i, sel).Text = none Then Cells(i - 1, sel).Copy
-           If Cells(i, sel).Text = none Then Cells(i, sel).Select
-           If Cells(i, sel).Text = none Then ActiveSheet.Paste
-                    
-        Next j
-     
+        
+        'If Cells(i, 8).Value = "XE22" Then Cells(i, 10).Value = "Infi"
+        'If Cells(i, 8).Value = "XE42" Then Cells(i, 10).Value = "NMCT670"
+        'If Cells(i, 8).Value = "SYMBIAE1429" Then Cells(i, 10).Value = "Sym"
+        'If Cells(i, 8).Value = "XE12" Then Cells(i, 10).Value = "NM830"
+        
+        If (Cells(i, 8).Value = "READOUT_T" Or Cells(i, 8).Value = "PIVIEW") Then
+            Rows(i).Delete
+            i = i - 1
+        End If
+        
+         
     Next i
 
 
@@ -100,9 +81,6 @@ With ActiveWorkbook.Worksheets("Sheet1").Sort
     .SortMethod = xlPinYin
     .Apply
 End With
-
-Columns("H:P").Hidden = True
-Columns("R:U").Hidden = True
 
 MsgBox "Data Merging & Reforming Complete"
 
