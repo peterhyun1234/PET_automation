@@ -47,6 +47,10 @@ Function readTextFile()
                     idxOfID = findIndexOf(ID)
                     'Debug.Print "idxOfID: "; idxOfID; ", ID: "; ID; vbNewLine;
 
+                    Cells(idxOfID, 11).Value = Approver
+                    Cells(idxOfID, 12).Value = CI
+                    Cells(idxOfID, 13).Value = comments
+
                     ID = ""
                     Approver = ""
                     CI = ""
