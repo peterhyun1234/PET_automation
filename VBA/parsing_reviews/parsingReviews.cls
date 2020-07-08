@@ -44,24 +44,24 @@ Function readTextFile()
                 End If
                 
 
-                if(lineNum = 0){ ' ID parsing
+                If (lineNum = 0) Then ' ID parsing
                     Debug.Print "lineNum: "; lineNum; ", lineValue"; lineValue; vbNewLine;
 
                     'parsedLine = Split(lineValue)
 
-                }else if(lineNum = 1){ ' Approver parsing
+                Elseif (lineNum = 1) Then ' Approver parsing
                     Debug.Print "lineNum: "; lineNum; ", lineValue"; lineValue; vbNewLine;
 
                     'parsedLine = Split(lineValue)
 
-                }else if(lineNum = 2){ ' CI parsing
+                Elseif (lineNum = 2) Then ' CI parsing
                     Debug.Print "lineNum: "; lineNum; ", lineValue"; lineValue; vbNewLine;
 
                     'parsedLine = Split(lineValue)
 
-                }else{ ' All comments parsing
+                Else ' All comments parsing
 
-                }
+                End If
 
                 lineNum = lineNum + 1
 
