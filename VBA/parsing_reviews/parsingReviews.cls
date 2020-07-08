@@ -15,8 +15,11 @@ Function readTextFile()
     Dim path
     path = "F:\Nuclear Medicine\판독문 정리\process_1\202005_reviews_1.txt"
     
+    Dim userNum
+    userNum = 1
+
     Dim lineNum
-    lineNum = 1
+    lineNum = 0
     
     Dim lineValue As String
     
@@ -30,51 +33,48 @@ Function readTextFile()
 
     Open path For Input As #1
         Do While Not EOF(1)
-            Line Input #1, lineValue
-            ' Debug.Print "Line value"; lineNum; ": "; lineValue; vbNewLine;
-            
-            parsedLine = Split(lineValue)
-            
-            
-            ID = parsedLine(0)
-            
-            Dim idxOfID
-            
-            idxOfID = findIndexOf(ID)
-            
-            
-            
-            
-            
-        '     If arrLen < 3 Then
-        '         Debug.Print idxOfID; "."; parsedLine(0); ": "; parsedLine(1); vbNewLine;
-        '         comments = parsedLine(1)
-                
-        '         Cells(idxOfID, 16).Value = comments
-                
-        '    Else
 
-        '         femurTotalCnt = parsedLine(1)
-        '         femurSD = parsedLine(2)
-        '         femurArea = parsedLine(3)
+            Do While (i<5)
+                Line Input #1, lineValue
+
+                If (StrComp(lineValue, "///", vbTextCompare) = 0) Then
+                    Debug.Print "lineNum: "; lineNum; ", userNum"; userNum; vbNewLine;
+                    lineNum = 0
+                    Exit Do
+                End If
                 
-        '         thighTotalCnt = parsedLine(4)
-        '         thighSD = parsedLine(5)
-        '         thighArea = parsedLine(6)
-                
-        '        Cells(idxOfID, 8).Value = femurTotalCnt
-        '        Cells(idxOfID, 10).Value = femurSD
-        '         Cells(idxOfID, 11).Value = femurArea
-                
-        '         Cells(idxOfID, 12).Value = thighTotalCnt
-        '         Cells(idxOfID, 14).Value = thighSD
-        '         Cells(idxOfID, 15).Value = thighArea
+
+                if(lineNum = 0){ ' ID parsing
+                    Debug.Print "lineNum: "; lineNum; ", lineValue"; lineValue; vbNewLine;
+
+                    'parsedLine = Split(lineValue)
+
+                }else if(lineNum = 1){ ' Approver parsing
+                    Debug.Print "lineNum: "; lineNum; ", lineValue"; lineValue; vbNewLine;
+
+                    'parsedLine = Split(lineValue)
+
+                }else if(lineNum = 2){ ' CI parsing
+                    Debug.Print "lineNum: "; lineNum; ", lineValue"; lineValue; vbNewLine;
+
+                    'parsedLine = Split(lineValue)
+
+                }else{ ' All comments parsing
+
+                }
+
+                lineNum = lineNum + 1
+
+            Loop
             
+            'ID = parsedLine(0)
             
-        '     End If
+            'Dim idxOfID
             
+            'idxOfID = findIndexOf(ID)
+                    
             
-            lineNum = lineNum + 1
+            userNum = userNum + 1
         Loop
     Close #1
     
