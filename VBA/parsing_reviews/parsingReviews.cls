@@ -39,7 +39,14 @@ Function readTextFile()
 
                 If (StrComp(lineValue, "///", vbTextCompare) = 0) Then
                     'Debug.Print "lineNum: "; lineNum; ", userNum"; userNum; vbNewLine;
-                    Debug.Print "all comments: "; vbNewLine; comments; vbNewLine; vbNewLine;
+                    'Debug.Print "all comments: "; vbNewLine; comments; vbNewLine; vbNewLine;
+
+
+                    Dim idxOfID
+                    
+                    idxOfID = findIndexOf(ID)
+                    'Debug.Print "idxOfID: "; idxOfID; ", ID: "; ID; vbNewLine;
+
                     ID = ""
                     Approver = ""
                     CI = ""
@@ -51,17 +58,18 @@ Function readTextFile()
 
                 If (lineNum = 0) Then ' ID parsing
                     ID = Right(lineValue, Len(lineValue) - 4)
-                    Debug.Print "lineNum: "; lineNum; ", ID: "; ID; vbNewLine;
+                    ID = Left(ID, 7)
+                    'Debug.Print "lineNum: "; lineNum; ", ID: "; ID; vbNewLine;
 
-                Elseif (lineNum = 1) Then ' Approver parsing
+                ElseIf (lineNum = 1) Then ' Approver parsing
                     Approver = Right(lineValue, Len(lineValue) - 10)
-                    Debug.Print "lineNum: "; lineNum; ", Approver: "; Approver; vbNewLine;
+                    'Debug.Print "lineNum: "; lineNum; ", Approver: "; Approver; vbNewLine;
 
-                Elseif (lineNum = 2) Then ' CI parsing
+                ElseIf (lineNum = 2) Then ' CI parsing
                     CI = Right(lineValue, Len(lineValue) - 4)
-                    Debug.Print "lineNum: "; lineNum; ", CI: "; CI; vbNewLine;
+                    'Debug.Print "lineNum: "; lineNum; ", CI: "; CI; vbNewLine;
 
-                Elseif (lineNum = 3) Then ' skip
+                ElseIf (lineNum = 3) Then ' skip
 
                 Else ' All comments parsing
                     comments = comments & lineValue
@@ -70,14 +78,7 @@ Function readTextFile()
                 lineNum = lineNum + 1
 
             Loop
-            
-            'ID = parsedLine(0)
-            
-            'Dim idxOfID
-            
-            'idxOfID = findIndexOf(ID)
-                    
-            
+
             userNum = userNum + 1
         Loop
     Close #1
@@ -113,4 +114,5 @@ Function findIndexOf(ID)
     findIndexOf = findedIdx
 
 End Function
+
 
