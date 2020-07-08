@@ -34,33 +34,34 @@ Function readTextFile()
     Open path For Input As #1
         Do While Not EOF(1)
 
-            Do While (i<5)
+            Do While (True)
                 Line Input #1, lineValue
 
                 If (StrComp(lineValue, "///", vbTextCompare) = 0) Then
                     Debug.Print "lineNum: "; lineNum; ", userNum"; userNum; vbNewLine;
+                    Debug.Print "all comments: "; vbNewLine; comments; vbNewLine; vbNewLine;
+                    comments = ""
                     lineNum = 0
                     Exit Do
                 End If
                 
 
                 If (lineNum = 0) Then ' ID parsing
-                    Debug.Print "lineNum: "; lineNum; ", lineValue"; lineValue; vbNewLine;
-
-                    'parsedLine = Split(lineValue)
+                    parsedLine = Split(lineValue)
+                    Debug.Print "lineNum: "; lineNum; ", ID: "; parsedLine(1); vbNewLine;
 
                 Elseif (lineNum = 1) Then ' Approver parsing
-                    Debug.Print "lineNum: "; lineNum; ", lineValue"; lineValue; vbNewLine;
-
-                    'parsedLine = Split(lineValue)
+                    parsedLine = Split(lineValue)
+                    Debug.Print "lineNum: "; lineNum; ", Approver: "; parsedLine(1); vbNewLine;
 
                 Elseif (lineNum = 2) Then ' CI parsing
-                    Debug.Print "lineNum: "; lineNum; ", lineValue"; lineValue; vbNewLine;
+                    parsedLine = Split(lineValue)
+                    Debug.Print "lineNum: "; lineNum; ", CI: "; parsedLine(1); vbNewLine;
 
-                    'parsedLine = Split(lineValue)
+                Elseif (lineNum = 3) Then ' skip
 
                 Else ' All comments parsing
-
+                    comments = comments & lineValue
                 End If
 
                 lineNum = lineNum + 1
