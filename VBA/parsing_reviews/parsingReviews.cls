@@ -13,7 +13,7 @@ Function readTextFile()
     On Error GoTo exmsg
     
     Dim path
-    path = "F:\Nuclear Medicine\판독문 정리\process_1\202005_reviews_1.txt"
+    path = "F:\Nuclear Medicine\판독문 정리\process_1\20_reviews_1.txt"
     
     Dim userNum
     userNum = 1
@@ -118,5 +118,6 @@ Function findIndexOf(ID)
     findIndexOf = findedIdx
 
 End Function
+
 
 
