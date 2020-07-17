@@ -18,13 +18,12 @@ inputEndID := ""
 currentIdx = 0
 
 
-reviewFileName = F:\Nuclear Medicine\판독문 정리\process_1\may_reviews.txt
-
+reviewFileName = F:\Nuclear Medicine\판독문 정리\process_1\202004_reviews_1.txt
 
 Gui, New, hwndhGui AlwaysOnTop
 Gui, Add, Text, x21 y34 w100 h19 ,Date 
 Gui, Add, Edit, x75 y30 w300 h19 vStudy_Date,
-Gui, Add, Text, x21 y74 w100 h19 ,last ID 
+Gui, Add, Text, x21 y74 w100 h19 ,lastID-1
 Gui, Add, Edit, x75 y70 w300 h19 vlastID,
 Gui, Add, Text, x21 y114 w100 h19 ,Contents 
 Gui, Add, Edit, x75 y110 w400 h300 vMyEdit, 빈칸
@@ -205,43 +204,43 @@ return
 		MouseClick, left, 200, 1240
 
 		Send {WheelDown}
-		Sleep, 200
+		Sleep, 400
 		Send {WheelDown}
-		Sleep, 200
+		Sleep, 400
 		Send {WheelDown}
-		Sleep, 200
+		Sleep, 400
 		Send {WheelDown}
-		Sleep, 200
+		Sleep, 400
 		Send {WheelDown}
-		Sleep, 200
+		Sleep, 400
 
 
 		; shift 누른 상태에서
 		SENDINPUT {SHIFT DOWN}
-		Sleep, 200
+		Sleep, 400
 		
 		
 		; 스크롤 내리고
 
 		MouseClick, left, 562, 1958
-		Sleep, 200
+		Sleep, 400
 
 		SENDINPUT {SHIFT UP}
-		Sleep, 200
+		Sleep, 400
 
 		Send, ^c
-		Sleep, 200
+		Sleep, 400
 		
 		MouseClick, left, 1154, 1050
 		Send, ^a
 		Send, ^v
 
-		Sleep, 200
+		Sleep, 400
 
 		; load reviews btn
 		MouseClick, left, 1269, 1320
 
-		Sleep, 200
+		Sleep, 400
 
 		ypos := ypos + 22
 
@@ -256,43 +255,43 @@ return
 				MouseClick, left, 200, 1240
 
 				Send {WheelDown}
-				Sleep, 200
+				Sleep, 400
 				Send {WheelDown}
-				Sleep, 200
+				Sleep, 400
 				Send {WheelDown}
-				Sleep, 200
+				Sleep, 400
 				Send {WheelDown}
-				Sleep, 200
+				Sleep, 400
 				Send {WheelDown}
-				Sleep, 200
+				Sleep, 400
 
 
 				; shift 누른 상태에서
 				SENDINPUT {SHIFT DOWN}
-				Sleep, 200
+				Sleep, 400
 				
 				
 				; 스크롤 내리고
 
 				MouseClick, left, 562, 1958
-				Sleep, 200
+				Sleep, 400
 
 				SENDINPUT {SHIFT UP}
-				Sleep, 200
+				Sleep, 400
 
 				Send, ^c
-				Sleep, 200
+				Sleep, 400
 				
 				MouseClick, left, 1154, 1050
 				Send, ^a
 				Send, ^v
 
-				Sleep, 200
+				Sleep, 400
 
 				; load reviews btn
 				MouseClick, left, 1269, 1320
 
-				Sleep, 200
+				Sleep, 400
 
 				MsgBox, 4, , % "Duplication occured in ID, Process end" , 2
 
@@ -307,7 +306,7 @@ return
 				Loop, 24
 				{
 					Send, {Down}
-					Sleep, 1000
+					Sleep, 1500
 				}
 
 				ypos := 230
