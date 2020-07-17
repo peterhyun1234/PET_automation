@@ -7,9 +7,9 @@ Columns("A:Z").Hidden = False
 
 
 ''''''''''''''''''''''''''''''''''''''
-Origin = "202005_review_result.xlsm" '
+Origin = "20_review_result.xlsm" '
                                      '
-WBS = "202005_reviews_2"             '
+WBS = "20_reviews_2"             '
 WB = WBS + ".csv"                    '
 ''''''''''''''''''''''''''''''''''''''
 
