@@ -13,7 +13,7 @@ Function readTextFile()
     On Error GoTo exmsg
     
     Dim path
-    path = "F:\Nuclear Medicine\판독문 정리\process_1\20_reviews_1.txt"
+    path = "C:\판독문 정리\process_1\2018\20_reviews_1.txt"
     
     Dim userNum
     userNum = 1
@@ -24,6 +24,9 @@ Function readTextFile()
     Dim lineValue As String
     
     Dim ID
+    Dim startIdx
+
+    startIdx = 0;
     
     Dim Approver
     Dim CI
@@ -44,7 +47,7 @@ Function readTextFile()
 
                     Dim idxOfID
                     
-                    idxOfID = findIndexOf(ID)
+                    idxOfID = findIndexOf(ID, startIdx)
                     'Debug.Print "idxOfID: "; idxOfID; ", ID: "; ID; vbNewLine;
 
                     Cells(idxOfID, 11).Value = Approver
@@ -96,21 +99,22 @@ exmsg:
 End Function
 
 
-Function findIndexOf(ID)
+Function findIndexOf(ID, startIdx)
     'Debug.Print "function called with "; ID; vbNewLine;
     Dim findedIdx
     
     Dim searchID As String
     
-    Row = 0
+    Row = startIdx
     
     Do
     DoEvents
     
         Row = Row + 1
         searchID = ActiveSheet.UsedRange.Range("A" & Row)
-        If InStr(searchID, ID) > 0 Then
+        If InStr(searchID, ID) > 0 And Row > 10000 Then
             findedIdx = Row
+            Exit Do
         End If
         
     Loop Until searchID = ""

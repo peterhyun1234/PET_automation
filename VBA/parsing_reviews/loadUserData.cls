@@ -9,7 +9,7 @@ Columns("A:Z").Hidden = False
 ''''''''''''''''''''''''''''''''''''''
 Origin = "20_review_result.xlsm" '
                                      '
-WBS = "20_reviews_2"             '
+WBS = "merged_reviews_2"             '
 WB = WBS + ".csv"                    '
 ''''''''''''''''''''''''''''''''''''''
 
@@ -61,7 +61,7 @@ Cells(i, 1).Value = Right("0000000" & num0, 7)
         'If Cells(i, 8).Value = "SYMBIAE1429" Then Cells(i, 10).Value = "Sym"
         'If Cells(i, 8).Value = "XE12" Then Cells(i, 10).Value = "NM830"
         
-        If (Cells(i, 8).Value = "READOUT_T" Or Cells(i, 8).Value = "PIVIEW") Then
+        If (Cells(i, 8).Value = "READOUT_T" Or Cells(i, 8).Value = "PIVIEW" Or Cells(i, 8).Value = "indm_outdr3" Or Cells(i, 8).Value = "IHCC01") Then
             Rows(i).Delete
             i = i - 1
         End If
