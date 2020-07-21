@@ -13,7 +13,7 @@ Function readTextFile()
     On Error GoTo exmsg
     
     Dim path
-    path = "C:\판독문 정리\process_1\2018\20_reviews_1.txt"
+    path = "C:\판독문 정리\process_1\2018\201801_reviews_1.txt"
     
     Dim userNum
     userNum = 1
@@ -26,7 +26,7 @@ Function readTextFile()
     Dim ID
     Dim startIdx
 
-    startIdx = 0;
+    startIdx = 0
     
     Dim Approver
     Dim CI
@@ -90,6 +90,8 @@ Function readTextFile()
         Loop
     Close #1
     
+    MsgBox "Data parsing Complete"
+    
     Exit Function
     
 exmsg:
@@ -112,7 +114,7 @@ Function findIndexOf(ID, startIdx)
     
         Row = Row + 1
         searchID = ActiveSheet.UsedRange.Range("A" & Row)
-        If InStr(searchID, ID) > 0 And Row > 10000 Then
+        If InStr(searchID, ID) > 0 Or Row > 10000 Then
             findedIdx = Row
             Exit Do
         End If
@@ -122,6 +124,7 @@ Function findIndexOf(ID, startIdx)
     findIndexOf = findedIdx
 
 End Function
+
 
 
 
