@@ -1,14 +1,16 @@
 Sub inspectionOfParsingReviews()
 
 
-Call findNoises
+Call deleteNoises
+Call swapApproverName
+Call parsingCI
 
 
 End Sub
 
 
 
-Function findNoises()
+Function deleteNoises()
     
     On Error GoTo exmsg
     
@@ -101,5 +103,52 @@ exmsg:
 
 End Function
 
+Function swapApproverName(ID, startIdx)
 
+    'Debug.Print "function called with "; ID; vbNewLine;
+    Dim findedIdx
+    
+    Dim searchID As String
+    
+    Row = startIdx
+    
+    Do
+    DoEvents
+    
+        Row = Row + 1
+        searchID = ActiveSheet.UsedRange.Range("A" & Row)
+        If InStr(searchID, ID) > 0 Or Row > 10000 Then
+            findedIdx = Row
+            Exit Do
+        End If
+        
+    Loop Until searchID = ""
+    
+    findIndexOf = findedIdx
 
+End Function
+
+Function parsingCI(ID, startIdx)
+
+    'Debug.Print "function called with "; ID; vbNewLine;
+    Dim findedIdx
+    
+    Dim searchID As String
+    
+    Row = startIdx
+    
+    Do
+    DoEvents
+    
+        Row = Row + 1
+        searchID = ActiveSheet.UsedRange.Range("A" & Row)
+        If InStr(searchID, ID) > 0 Or Row > 10000 Then
+            findedIdx = Row
+            Exit Do
+        End If
+        
+    Loop Until searchID = ""
+    
+    findIndexOf = findedIdx
+
+End Function
