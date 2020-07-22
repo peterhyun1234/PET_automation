@@ -31,7 +31,8 @@ Function deleteNoises()
         Dim approver
         approver = Cells(idx, 11).Value
 
-        If approver = "" Then
+        If approver = "" Or approver = " " Then
+            Cells(idx, 11).Value = ""
             Cells(idx, 11).Interior.Color = RGB(255, 0, 0)
         Else
             Dim comments
@@ -47,7 +48,7 @@ Function deleteNoises()
                 CI = Cells(idx, 12).Value
                 If CI = "" Or CI = " " Then
                     Dim parsedCommentsTemp() As String
-                    parsedCommentsTemp() = Split(comments, "(clinical information: ")
+                    parsedCommentsTemp() = Split(comments, "(clinical information:")
                     If UBound(parsedCommentsTemp) > 0 Then
                         Dim parsedComments() As String
                         parsedComments() = Split(parsedCommentsTemp(1), ")")
