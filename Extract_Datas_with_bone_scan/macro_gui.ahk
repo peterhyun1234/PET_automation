@@ -52,32 +52,32 @@ Gui, Show, x3300 y0
 
 Push_femur:
 
-global femur_total_cnt
-global femur_std_dev 
-global femur_area
+	global femur_total_cnt
+	global femur_std_dev 
+	global femur_area
 
-global stopFlag
+	global stopFlag
 
-Gui,Submit,nohide
+	Gui,Submit,nohide
 
-; name parsing needed
-parsed_temp_window := StrSplit(Name, A_Space, ".")
+	; name parsing needed
+	parsed_temp_window := StrSplit(Name, A_Space, ".")
 
-femur_total_cnt := parsed_temp_window[1]
-femur_std_dev := parsed_temp_window[2]
-femur_area := parsed_temp_window[3]
+	femur_total_cnt := parsed_temp_window[1]
+	femur_std_dev := parsed_temp_window[2]
+	femur_area := parsed_temp_window[3]
 
-;MsgBox, 4, , % "femur_area: " femur_area , 3
+	;MsgBox, 4, , % "femur_area: " femur_area , 3
 
-if (femur_area = 99 or femur_area = 100){
-	return
-}else{
-	Msgbox, 4, , Area is not appropriate. Do you want to continue?
-	IfMsgBox No 
-		stopFlag = 1
-} 
+	if (femur_area = 99 or femur_area = 100){
+		return
+	}else{
+		Msgbox, 4, , Area is not appropriate. Do you want to continue?
+		IfMsgBox No 
+			stopFlag = 1
+	} 
 
-;MsgBox % "TC is " femur_total_cnt ", std is " femur_std_dev ", area is " femur_area
+	;MsgBox % "TC is " femur_total_cnt ", std is " femur_std_dev ", area is " femur_area
 
 return
 
@@ -88,20 +88,20 @@ return
 
 Push_thigh:
 
-global thigh_total_cnt 
-global thigh_std_dev 
-global thigh_area 
+	global thigh_total_cnt 
+	global thigh_std_dev 
+	global thigh_area 
 
-Gui,Submit,nohide
+	Gui,Submit,nohide
 
-; name parsing needed
-parsed_temp_window := StrSplit(Name, A_Space, ".")
+	; name parsing needed
+	parsed_temp_window := StrSplit(Name, A_Space, ".")
 
-thigh_total_cnt := parsed_temp_window[1]
-thigh_std_dev := parsed_temp_window[2]
-thigh_area := parsed_temp_window[3]
+	thigh_total_cnt := parsed_temp_window[1]
+	thigh_std_dev := parsed_temp_window[2]
+	thigh_area := parsed_temp_window[3]
 
-;MsgBox % "TC is " thigh_total_cnt ", std is " thigh_std_dev ", area is " thigh_area
+	;MsgBox % "TC is " thigh_total_cnt ", std is " thigh_std_dev ", area is " thigh_area
 
 return
 
@@ -111,18 +111,18 @@ return
 
 ^r:: ; 1. load IDs in file data
 
-Loop, Read, C:\Program Files\AutoHotkey\result_of\%idTxtName%
-{
-	idArray.insert(A_LoopReadLine)
-	idArrayLen++
-}
+	Loop, Read, C:\Program Files\AutoHotkey\result_of\%idTxtName%
+	{
+		idArray.insert(A_LoopReadLine)
+		idArrayLen++
+	}
 
-Msgbox, "Reading proccess complete"
+	Msgbox, "Reading proccess complete"
 
-;For index, element in idArray
-;{
-;	Msgbox, % "Element number" . index . " is " . element
-;}
+	;For index, element in idArray
+	;{
+	;	Msgbox, % "Element number" . index . " is " . element
+	;}
 
 return 
 
@@ -132,34 +132,35 @@ return
 
 a:: ; 2. when press some keys, then Search Id and
 
-currentID := idArray[idIdx]
 
-if !currentID 
-{
-	Msgbox, "currentID empty"
-	return
-}
-	
-Mousemove, 465, 176
-Sleep, 100
+	currentID := idArray[idIdx]
 
-; remove
-MouseClick
-Sleep, 100
-Send, {BS}
+	if !currentID 
+	{
+		Msgbox, "currentID empty"
+		return
+	}
+		
+	Mousemove, 465, 176
+	Sleep, 100
 
-; insert
-MouseClick
-Sleep, 100
-Send, %currentID%
-Sleep, 100
-Send, {Enter}
-Sleep, 100
+	; remove
+	MouseClick
+	Sleep, 100
+	Send, {BS}
 
-Mousemove, 30, 236
-MouseClick
+	; insert
+	MouseClick
+	Sleep, 100
+	Send, %currentID%
+	Sleep, 100
+	Send, {Enter}
+	Sleep, 100
 
-idIdx ++
+	Mousemove, 30, 236
+	MouseClick
+
+	idIdx ++
 
 return
 
@@ -169,9 +170,10 @@ return
 
 s::
 
-Mousemove, 1612, 592
 
-MouseClick
+	Mousemove, 1612, 592
+
+	MouseClick
 
 return
 
@@ -183,20 +185,20 @@ return
 
 d:: ; Start Settings with Left leg
 
-X = -4
-Y = 0
-Zoom = 4
-Bright = 28
+	X = -4
+	Y = 0
+	Zoom = 4
+	Bright = 28
 
-StartSetting(X, Y, Zoom, Bright)
+	StartSetting(X, Y, Zoom, Bright)
 
-; Create ROI with Left leg
+	; Create ROI with Left leg
 
-sideOfleg = left
+	sideOfleg = left
 
-Create_ROI(sideOfleg)
+	Create_ROI(sideOfleg)
 
-open_statistics()
+	open_statistics()
 
 return 
 
@@ -218,40 +220,40 @@ return
 
 f:: ; 5. if can, press each leg macro key in left side
 
-sideOfleg = left
+	sideOfleg = left
 
-write_temp_femur()
-
-
-push_femur_data()
+	write_temp_femur()
 
 
-if (stopFlag = 1){
+	push_femur_data()
+
+
+	if (stopFlag = 1){
+		initialize_count()
+		stopFlag = 0
+		return
+	}
+
+	move_to_thigh()
+
+
+	write_temp_thigh()
+
+
+	if( push_thigh_data() = 0){
+		MsgBox, "ROI was not moved!"
+		return
+	}
+
+
+	write_statistics()
+
+
 	initialize_count()
-	stopFlag = 0
-	return
-}
 
-move_to_thigh()
+	initialize_progress()
 
-
-write_temp_thigh()
-
-
-if( push_thigh_data() = 0){
-	MsgBox, "ROI was not moved!"
-	return
-}
-
-
-write_statistics()
-
-
-initialize_count()
-
-initialize_progress()
-
-close_reviews()
+	close_reviews()
 
 return 
 
@@ -300,19 +302,19 @@ return
 
 t:: ; Switch Left leg to Right leg
 
-Mousemove, 18, 780
-Sleep, 200
-MouseClick
-Sleep, 100
+	Mousemove, 18, 780
+	Sleep, 200
+	MouseClick
+	Sleep, 100
 
-Mousemove, 50, 662
-Sleep, 100
-MouseClick
-Sleep, 100
-Send, {BS}
-Sleep, 100
-Send, {Enter}
-Sleep, 100	
+	Mousemove, 50, 662
+	Sleep, 100
+	MouseClick
+	Sleep, 100
+	Send, {BS}
+	Sleep, 100
+	Send, {Enter}
+	Sleep, 100	
 
 return 
 
@@ -331,8 +333,8 @@ return
 
 
 q:: ; delete Cards
-cardNum = 8
-closeCards(cardNum)
+	cardNum = 8
+	closeCards(cardNum)
 return
 
 
@@ -354,20 +356,20 @@ return
 
 z:: ; Start Settings with right leg
 
-X = 4
-Y = 0
-Zoom = 4
-Bright = 28
+	X = 4
+	Y = 0
+	Zoom = 4
+	Bright = 28
 
-StartSetting(X, Y, Zoom, Bright)
+	StartSetting(X, Y, Zoom, Bright)
 
-; Create ROI with right leg
+	; Create ROI with right leg
 
-sideOfleg = right
+	sideOfleg = right
 
-Create_ROI(sideOfleg)
+	Create_ROI(sideOfleg)
 
-open_statistics()
+	open_statistics()
 
 return 
 
@@ -385,39 +387,39 @@ return
 
 x:: ; 5. if can, press each leg macro key in Right side
 
-sideOfleg = right
+	sideOfleg = right
 
-write_temp_femur()
-
-
-push_femur_data()
+	write_temp_femur()
 
 
-if (stopFlag = 1){
+	push_femur_data()
+
+
+	if (stopFlag = 1){
+		initialize_count()
+		stopFlag = 0
+		return
+	}
+
+	move_to_thigh() ; right leg
+
+
+	write_temp_thigh()
+
+	if( push_thigh_data() = 0){
+		MsgBox, "ROI was not moved!"
+		return
+	}
+
+
+	write_statistics()
+
+
 	initialize_count()
-	stopFlag = 0
-	return
-}
 
-move_to_thigh() ; right leg
+	initialize_progress()
 
-
-write_temp_thigh()
-
-if( push_thigh_data() = 0){
-	MsgBox, "ROI was not moved!"
-	return
-}
-
-
-write_statistics()
-
-
-initialize_count()
-
-initialize_progress()
-
-close_reviews()
+	close_reviews()
 
 return 
 
