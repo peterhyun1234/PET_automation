@@ -18,7 +18,8 @@ inputEndID := ""
 currentIdx = 0
 
 
-reviewFileName = F:\Nuclear Medicine\판독문 정리\process_1\202004_reviews_1.txt
+; reviewFileName = F:\Nuclear Medicine\판독문 정리\process_1\202004_reviews_1.txt
+reviewFileName = F:\Nuclear Medicine\판독문 정리\process_1\temp.txt
 
 Gui, New, hwndhGui AlwaysOnTop
 Gui, Add, Text, x21 y34 w100 h19 ,Date 
