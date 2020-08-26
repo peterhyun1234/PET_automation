@@ -1,0 +1,14 @@
+# no .a files
+*.a
+
+# no .scv files
+*.scv
+
+# no .xlsm files
+*.xlsm
+
+# no .pdf files
+*.pdf
+
+# no node_modules
+node_modules/
