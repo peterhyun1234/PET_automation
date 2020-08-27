@@ -21,12 +21,50 @@ while(sheetIdx < degreeOfMachines){
     const jsonData = xlsx.utils.sheet_to_json( currSheet, { defval : ""} );
     
     let idx = 1;
+    let femaleAgeGroups = [[],[],[],[],[]];
+    let maleAgeGroups = [[],[],[],[],[]];
+
     while(jsonData[idx].ID){
-        //console.log( jsonData[idx].ID);
+        // 연령별로 F/M 구분해서 배열에 저장
+        //console.log(jsonData[idx]);
+        if(30 <= jsonData[idx].Age && jsonData[idx].Age < 40){
+            if(jsonData[idx].Sex === 'F'){
+                femaleAgeGroups[0].push(jsonData[idx].ID);
+            }else{
+                maleAgeGroups[0].push(jsonData[idx].ID);
+            }
+        }else if(40 <= jsonData[idx].Age && jsonData[idx].Age < 50){
+            if(jsonData[idx].Sex === 'F'){
+                femaleAgeGroups[1].push(jsonData[idx].ID);
+            }else{
+                maleAgeGroups[1].push(jsonData[idx].ID);
+            }
+        }else if(50 <= jsonData[idx].Age && jsonData[idx].Age < 60){
+            if(jsonData[idx].Sex === 'F'){
+                femaleAgeGroups[2].push(jsonData[idx].ID);
+            }else{
+                maleAgeGroups[2].push(jsonData[idx].ID);
+            }
+        }else if(60 <= jsonData[idx].Age && jsonData[idx].Age < 70){
+            if(jsonData[idx].Sex === 'F'){
+                femaleAgeGroups[3].push(jsonData[idx].ID);
+            }else{
+                maleAgeGroups[3].push(jsonData[idx].ID);
+            }
+        }else if(70 <= jsonData[idx].Age && jsonData[idx].Age < 80){
+            if(jsonData[idx].Sex === 'F'){
+                femaleAgeGroups[4].push(jsonData[idx].ID);
+            }else{
+                maleAgeGroups[4].push(jsonData[idx].ID);
+            }
+        }
         idx++;
     }
+    
+    for(let i = 0; i < maleAgeGroups.length; i++){
+        console.log(maleAgeGroups[i].length);
+    }
 
-    console.log(idx);
 
     sheetIdx++; // next sheet
 }
