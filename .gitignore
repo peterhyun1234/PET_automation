@@ -7,6 +7,9 @@
 # no .xlsm files
 *.xlsm
 
+# no .xlsx files
+*.xlsx
+
 # no .pdf files
 *.pdf
 
