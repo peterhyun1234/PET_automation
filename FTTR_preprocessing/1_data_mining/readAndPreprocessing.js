@@ -95,23 +95,27 @@ while(sheetIdx < degreeOfMachines){
     // 랜덤으로 남자 최대 50, 여자 50 넣기
     for(let i = 0; i < maleAgeGroups.length; i++){
         let age = [30, 40, 50, 60, 70];
-        let femaleCnt;
-        let maleCnt;
-        if(maleAgeGroups[i].length + femaleAgeGroups[i].length <= numbersOfSample*2){ // 전체 표본이 100개 이하인 경우
+        let femaleCnt = 0;
+        let maleCnt = 0;
+
+        if(maleAgeGroups[i].length + femaleAgeGroups[i].length <= numbersOfSample * 2){ // 전체 표본이 100개 이하인 경우
             while(maleAgeGroups[i].length){
                 resultIDs[i].push(maleAgeGroups[i].pop());
+                femaleCnt++;
             }
             while(femaleAgeGroups[i].length){
                 resultIDs[i].push(femaleAgeGroups[i].pop());
+                maleCnt++;
             }
         }else{
+            
             if(maleAgeGroups[i].length <= numbersOfSample){ // 남자가 50명 이하인 경우
                 while(maleAgeGroups[i].length){
                     resultIDs[i].push(maleAgeGroups[i].pop());
+                    maleCnt++;
                 }
                 // 여자는 랜덤화해서 50명 추출 후 push
                 femaleAgeGroups[i].shuffle();
-                femaleCnt = 0;
                 while(femaleCnt < numbersOfSample){
                     resultIDs[i].push(femaleAgeGroups[i].pop());
                     femaleCnt++;
@@ -119,7 +123,6 @@ while(sheetIdx < degreeOfMachines){
 
             }else{ // 남자, 여자 둘다 랜덤화해서 추출 후 push
                 maleAgeGroups[i].shuffle();
-                maleCnt = 0;
                 while(maleCnt < numbersOfSample){
                     resultIDs[i].push(maleAgeGroups[i].pop());
                     maleCnt++;
@@ -133,7 +136,7 @@ while(sheetIdx < degreeOfMachines){
                 }
             }
         }
-        //console.log("group " + age[i] + ": [ Female count: " + femaleCnt + ", Male count: " + maleCnt + "]");
+        console.log("group " + age[i] + ": [ Female: " + femaleCnt + ", Male: " + maleCnt + " ]");
 
         for(let j = 0; j < resultIDs[i].length; j++){
             let foundInfo = jsonData.find(element => element.ID == resultIDs[i][j]);
