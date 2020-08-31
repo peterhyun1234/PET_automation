@@ -1,50 +1,31 @@
-; 1. load IDs in file data
-; 2. when press some keys, then Search Id and
-; 3. Open WB file in review (not macro)
-; 4. Decide that img can be used (not macro)
-; 5. if can, press each leg macro key
-; 6. else, enter the reason why can't (not macro)
-; 7. process 2 restart
-
-
-
-stopFlag = 0
-reIndicateFlag = 0
-sideOfleg = ""
-
 idIdx = 1
 idArray:= Object()
 idArrayLen = 0
 currentID = 0
 
 currentReadLine := ""
+sharpness := ""
 
-idTxtName = 201912_202007\201912_202007_ID.txt
+idTxtName = 201912_202007\temp_ID.txt
 destTxtName = 201912_202007\201912_202007_result.txt
 
-xpos = 0
-ypos = 0
-
 Gui, New, hwndhGui AlwaysOnTop
-Gui, Add, Text,, Temp window %idIdx%
+Gui, Add, Text,, Checking Sharness 
 Gui, Add, Edit, x21 y45 w500 h19 vName, Edit
 Gui, Add, Text, x21 y74 w100 h19 ,Progress: 
 Gui, Add, Edit, x75 y70 w300 h19 vProcess,
 Gui, Add, Button, x50 y150 w100 h30 gPush_sharpness, read sharpness
 Gui, Show, x3300 y0
 
-
 Push_sharpness:
 
 	global sharpness
 
-	global stopFlag
-
 	Gui,Submit,nohide
 
-	sharpness = Name
+	sharpness := Name
 
-	MsgBox, 4, , % "sharpness: " sharpness , 3
+	; MsgBox, 4, , % "sharpness: " sharpness , 3
 
 return
 
@@ -67,9 +48,42 @@ a:: ; 2. when press some keys, then Search Id and
 
 	currentID := idArray[idIdx]
 
+
 	if !currentID 
 	{
 		Msgbox, "currentID empty"
+		return
+	}
+
+	if currentID = #Infi
+	{
+		;Msgbox, %currentID%
+		idIdx ++
+		write_machine()
+		return
+	}
+
+	if currentID = #Sym
+	{
+		;Msgbox, %currentID%
+		idIdx ++
+		write_machine()
+		return
+	}
+
+	if currentID = #NMCT670
+	{
+		;Msgbox, %currentID%
+		idIdx ++
+		write_machine()
+		return
+	}
+
+	if currentID = #NM830
+	{
+		;Msgbox, %currentID%
+		idIdx ++
+		write_machine()
 		return
 	}
 		
@@ -107,14 +121,21 @@ return
 
 
 
-d:: ; Start Settings
+d:: ; Start Settings and Write sharpness
+	
+	Mousemove, 18, 780
+	MouseClick
 
-	X = 0
-	Y = 0
-	Zoom = 1
-	Bright = 28
+	Mousemove, 248, 618
+	MouseClick, ,,, 2 ; double click
+	Send, 28
+	Send, {Enter}
 
-	StartSetting(X, Y, Zoom, Bright)
+	MouseClick, left, 1750, 77 ; temp Window
+	Send, ^a
+	Send, {BS}
+	Sleep, 50
+
 
 return 
 
@@ -159,20 +180,22 @@ StartSetting(X, Y, Zoom, Bright){
 
 
 push_sharpness(){
+	Coordmode, Mouse, Screen
 
-	global xpos
-	global ypos
-
-	MouseClick, left, 1482, 189 ; femur push button
+	MouseClick, left, 3400, 185 ; sharpness push button
 
 	Sleep, 50
 
-	MouseClick, left, -900, 175
+	MouseClick, left, 3060, 30 ; return to xeleris process
 
-	Sleep, 50
-	
-	MouseClick, left, %xpos%, %ypos% ; return to origin of mouse position
+}
 
+write_machine(){
+
+	global destTxtName 
+	global currentID
+
+	FileAppend, %currentID%`n, C:\Program Files\AutoHotkey\1_data_mining\result\%destTxtName%
 }
 
 write_statistics(){
@@ -192,11 +215,12 @@ initialize_count(){
 }
 
 initialize_progress(){
-	
+
+	Coordmode, Mouse, Screen
 	global idIdx
 	global idArrayLen
 
-	MouseClick, left, 1750, 100 ; temp Window
+	MouseClick, left, 3442, 100 ; progress
 	Send, ^a
 	Send, {BS}
 
@@ -207,15 +231,13 @@ initialize_progress(){
 	Send, %idArrayLen%
 	
 	Sleep, 50
-	Mousemove, -900, 175
-	MouseClick
-
 }
 
 
 close_reviews(){
 
-	MouseClick, left, 262, 125
+	Coordmode, Mouse, Screen
+	MouseClick, left, 2182, 123
 
 	Sleep, 200
 	Send,{TAB}
@@ -226,7 +248,7 @@ close_reviews(){
 
 	Sleep, 100
 
-	MouseClick, left, -740, 50
+	MouseClick, left, 1000, 125
 }
 
 
