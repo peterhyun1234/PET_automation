@@ -60,7 +60,7 @@ a:: ; 2. when press some keys, then Search Id and
 		;Msgbox, %currentID%
 		idIdx ++
 		write_machine()
-		return
+		currentID := idArray[idIdx]
 	}
 
 	if currentID = #Sym
@@ -68,7 +68,7 @@ a:: ; 2. when press some keys, then Search Id and
 		;Msgbox, %currentID%
 		idIdx ++
 		write_machine()
-		return
+		currentID := idArray[idIdx]
 	}
 
 	if currentID = #NMCT670
@@ -76,7 +76,7 @@ a:: ; 2. when press some keys, then Search Id and
 		;Msgbox, %currentID%
 		idIdx ++
 		write_machine()
-		return
+		currentID := idArray[idIdx]
 	}
 
 	if currentID = #NM830
@@ -84,7 +84,7 @@ a:: ; 2. when press some keys, then Search Id and
 		;Msgbox, %currentID%
 		idIdx ++
 		write_machine()
-		return
+		currentID := idArray[idIdx]
 	}
 		
 	Mousemove, 465, 176
