@@ -1,0 +1,15 @@
+{
+  "name": "2_sharpness_measurement",
+  "version": "1.0.0",
+  "description": "- confounds ���̷��� \r 1. ������ ����ϰ� ��������� �ʳ�? M:F = 1:1�� \r 2. ���� ��¥�� �������� �̾Ƴ� �ʿ䰡 ����",
+  "main": "mergingIDs.js",
+  "scripts": {
+    "start": "nodemon mergingIDs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.4",
+    "xlsx": "^0.16.6"
+  }
+}
