@@ -15,17 +15,23 @@ Title: 뼈스캔 대기시간 단축을 위한 딥러닝 기반의 고화질 영
 
 ## 3. Research procedure and method
 ### 3.1. 뼈 스캔 데이터 분석 속도 개선 및 반자동화
+
 ![1](https://user-images.githubusercontent.com/46476398/92076748-003da880-edf6-11ea-9a6f-7164499889c7.JPG)
+
     - 뼈 스캔 분석 속도 2.7배 증진
     - Thigh and Femur ratio 분석 반자동화 (상처는 직접 판별해야 하기때문)
     - Confound를 줄이기 위한 데이터 균일화 between Thigh and Femur
 
 ### 3.2. 뼈 스캔 데이터 노이즈 제거
+
 ![2](https://user-images.githubusercontent.com/46476398/92076747-ffa51200-edf5-11ea-87f7-7023e5bf47aa.JPG)
+
     - 정규성 검정에 의거한 노이즈 판별 및 재측정 
 
 ### 3.2. 분산 스토리지를 통한 데이터 저장
+
 ![3](https://user-images.githubusercontent.com/46476398/92076743-fe73e500-edf5-11ea-8f31-77fb40a623d5.JPG)
+
     - 다른 기계의 스토리지를 원격으로 접근해서 사용
     - 로컬 스토리지의 공간의 한계를 극복
     - 데이터 복제 저장을 통한 fault-tolerance 시스템
