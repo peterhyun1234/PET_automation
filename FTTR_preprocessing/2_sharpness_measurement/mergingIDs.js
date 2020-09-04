@@ -24,8 +24,11 @@ while(sheetIdx < degreeOfMachines){
             outputString += jsonData[i].ID + ", ";
         }
     }
-    //console.log(outputString);
-    fs.writeFileSync("merged_IDs.txt", '\ufeff' + outputString, {encoding: 'utf8'});
+    console.log(outputString);
+    //console.log(data_len);
+    //fs.writeFileSync("merged_IDs.txt", '\ufeff' + outputString, {encoding: 'utf8'});
     
     sheetIdx++; // next sheet
 }
+
+
