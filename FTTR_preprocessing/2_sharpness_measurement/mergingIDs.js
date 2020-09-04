@@ -30,5 +30,3 @@ while(sheetIdx < degreeOfMachines){
     
     sheetIdx++; // next sheet
 }
-
-
