@@ -6,7 +6,7 @@ currentID = 0
 currentReadLine := ""
 sharpness := ""
 
-idTxtName = 201912_202007\temp_ID.txt
+idTxtName = 201912_202007\201912_202007_ID.txt
 destTxtName = 201912_202007\201912_202007_result.txt
 
 Gui, New, hwndhGui AlwaysOnTop
@@ -60,7 +60,7 @@ a:: ; 2. when press some keys, then Search Id and
 		;Msgbox, %currentID%
 		idIdx ++
 		write_machine()
-		currentID := idArray[idIdx]
+		return
 	}
 
 	if currentID = #Sym
@@ -68,7 +68,7 @@ a:: ; 2. when press some keys, then Search Id and
 		;Msgbox, %currentID%
 		idIdx ++
 		write_machine()
-		currentID := idArray[idIdx]
+		return
 	}
 
 	if currentID = #NMCT670
@@ -76,7 +76,7 @@ a:: ; 2. when press some keys, then Search Id and
 		;Msgbox, %currentID%
 		idIdx ++
 		write_machine()
-		currentID := idArray[idIdx]
+		return
 	}
 
 	if currentID = #NM830
@@ -84,7 +84,7 @@ a:: ; 2. when press some keys, then Search Id and
 		;Msgbox, %currentID%
 		idIdx ++
 		write_machine()
-		currentID := idArray[idIdx]
+		return
 	}
 		
 	Mousemove, 465, 176
