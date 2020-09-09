@@ -128,7 +128,7 @@ d:: ; Start Settings and Write sharpness
 
 	Mousemove, 248, 618
 	MouseClick, ,,, 2 ; double click
-	Send, 28
+	Send, 50
 	Send, {Enter}
 
 	MouseClick, left, 1750, 77 ; temp Window
