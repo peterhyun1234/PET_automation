@@ -9,8 +9,8 @@ let myWorker1, myWorker2;
 // with worker thread
 
 
-myWorker1 = new Worker(__dirname + '/worker.js');        // 스레드를 생성해 파일 절대경로를 통해 가리킨 js파일을 작업
-myWorker2 = new Worker(__dirname + '/worker.js');
+myWorker1 = new Worker(__dirname + '/w_threadTest.js');        // 스레드를 생성해 파일 절대경로를 통해 가리킨 js파일을 작업
+myWorker2 = new Worker(__dirname + '/w_threadTest.js');
 
 doSomething();  // event loop가 처리해야 할 CPU 하드한 작업
 
