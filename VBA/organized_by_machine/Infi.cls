@@ -151,12 +151,34 @@ For c = 0 To 3
     Sheets(Mach(c + 1)).Range("X1:X" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
             
             
-    '' find noise and data formatting
-    '' 처음부터 끝까지 데이터 없는 거 검사하고 No_Data 기입
+    ' find noise and data formatting
+    ' 처음부터 끝까지 데이터 없는 거 검사하고 No_Data 기입
+    Debug.Print idxOfID; "."; parsedLine(0); ": "; parsedLine(1); vbNewLine;
+            
+    Dim findedIdx
+    
+    Dim searchID As String
+    
+    curRow = 3
+    
+    Do
+    DoEvents
+    
+        startTime = ActiveSheet.UsedRange.Range("A" & curRow)
+        endTime = ActiveSheet.UsedRange.Range("A" & curRow)
 
-            
-            
-            
+        If startTime is null or endTime is null  Then
+            time_inteval <- "No_data"
+        End If
+        
+        curRow = curRow + 1
+
+    Loop Until Row <= FinalRow
+    
+    findIndexOf = findedIdx
+
+       
+    ' print with msgbox for each session ended status        
     MsgBox Mach(c + 1) & " Part has finished (" & c + 1 & "/4)" & vbNewLine & "Now we have " & FinalRow - 2 & " Cases!"
 
     Total = Total + FinalRow - 2
