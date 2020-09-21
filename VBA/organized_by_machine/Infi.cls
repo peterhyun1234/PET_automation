@@ -1,20 +1,11 @@
-VERSION 1.0 CLASS
-BEGIN
-  MultiUse = -1  'True
-END
-Attribute VB_Name = "Sheet3"
-Attribute VB_GlobalNameSpace = False
-Attribute VB_Creatable = False
-Attribute VB_PredeclaredId = True
-Attribute VB_Exposed = True
 Sub Data_Merging()
 
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''
                                                       '
-CopyFrom = "201911 ������.xlsm"                       '
+CopyFrom = "202007 정리본.xlsm"                       '
                                                       '
-CopyTo = "201907-201911 ��躰 ������ with charts"    '
+CopyTo = "201907-202005 기계별 정리본 with charts.xlsm"    '
                                                       '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -67,8 +58,6 @@ Next i
 cellarr(0) = 1
 
 
-
-
 For c = 0 To 3
 
     Workbooks(CopyTo).Activate
@@ -90,7 +79,7 @@ For c = 0 To 3
     End With
 
 
-'''For rearranging by Study Date'''
+    '''For rearranging by Study Date'''
 
     Workbooks(CopyTo).Activate
     Workbooks(CopyTo).Sheets(Mach(c + 1)).Select
@@ -128,7 +117,7 @@ For c = 0 To 3
     Workbooks(CopyTo).Sheets("Comparing").Cells(ComCell(c + 1), 13) = "=" & Mach(c + 1) & "!Y" & FinalRow + 8
    
     
-'''For filtering non-Data IDs'''
+    '''For filtering non-Data IDs'''
 
     Row = 3
     
@@ -155,15 +144,22 @@ For c = 0 To 3
 
     '''To draw Outlines'''
     
-        Sheets(Mach(c + 1)).Range("B1:G" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
-        Sheets(Mach(c + 1)).Range("L1:O" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
-        Sheets(Mach(c + 1)).Range("Q1:Q" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
-        Sheets(Mach(c + 1)).Range("V1:W" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
-        Sheets(Mach(c + 1)).Range("X1:X" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
+    Sheets(Mach(c + 1)).Range("B1:G" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
+    Sheets(Mach(c + 1)).Range("L1:O" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
+    Sheets(Mach(c + 1)).Range("Q1:Q" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
+    Sheets(Mach(c + 1)).Range("V1:W" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
+    Sheets(Mach(c + 1)).Range("X1:X" & FinalRow).BorderAround LineStyle:=xlContinuous, Weight:=xlMedium, ColorIndex:=1
             
-     MsgBox Mach(c + 1) & " Part has finished (" & c + 1 & "/4)" & vbNewLine & "Now we have " & FinalRow - 2 & " Cases!"
+            
+    '' find noise and data formatting
+    '' 처음부터 끝까지 데이터 없는 거 검사하고 No_Data 기입
 
-     Total = Total + FinalRow - 2
+            
+            
+            
+    MsgBox Mach(c + 1) & " Part has finished (" & c + 1 & "/4)" & vbNewLine & "Now we have " & FinalRow - 2 & " Cases!"
+
+    Total = Total + FinalRow - 2
 
 Next c
 
