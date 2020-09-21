@@ -153,29 +153,31 @@ For c = 0 To 3
             
     ' find noise and data formatting
     ' 처음부터 끝까지 데이터 없는 거 검사하고 No_Data 기입
-    Debug.Print idxOfID; "."; parsedLine(0); ": "; parsedLine(1); vbNewLine;
             
-    Dim findedIdx
+    ' Dim startTime
+    ' Dim endTime
     
-    Dim searchID As String
+    ' Dim searchID As String
     
-    curRow = 3
+    ' curRow = 3
     
-    Do
-    DoEvents
+    ' Do
+    ' DoEvents
     
-        startTime = ActiveSheet.UsedRange.Range("A" & curRow)
-        endTime = ActiveSheet.UsedRange.Range("A" & curRow)
+    '     startTime = ActiveSheet.UsedRange.Range("V" & curRow)
+    '     endTime = ActiveSheet.UsedRange.Range("W" & curRow)
 
-        If startTime is null or endTime is null  Then
-            time_inteval <- "No_data"
-        End If
+    '     If isNull(startTime) Or isNull(endTime) Then
+    '         searchID = ActiveSheet.UsedRange.Range("A" & curRow)
+    '         time_inteval <- "No_data"
+    '         Debug.Print "searchID: "; searchID; vbNewLine;
+    '     End If
         
-        curRow = curRow + 1
+    '     curRow = curRow + 1
 
-    Loop Until Row <= FinalRow
+    ' Loop Until Row <= FinalRow
     
-    findIndexOf = findedIdx
+    ' findIndexOf = findedIdx
 
        
     ' print with msgbox for each session ended status        
