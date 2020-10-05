@@ -40,46 +40,41 @@ Function readTextFile()
             
             parsedLine = Split(lineValue)
             
-            ID = parsedLine(0)
-            
             Dim arrLen
             
             arrLen = UBound(parsedLine) - LBound(parsedLine) + 1
             
-            ID = parsedLine(0)
-            
-            Dim idxOfID
-            
-            idxOfID = findIndexOf(ID)
-            
-            
-            If arrLen < 3 Then
-                ' Debug.Print idxOfID; "."; parsedLine(0); ": "; parsedLine(1); vbNewLine;
-                comments = parsedLine(1)
+            If arrLen < 10 Then
+                Debug.Print sheet; ": "; parsedLine(0); vbNewLine;
+                ' comments = parsedLine(1)
                 
-                Cells(idxOfID, 16).Value = comments
+                ' Cells(idxOfID, 16).Value = comments
                 
             Else
 
-                femurTotalCnt = parsedLine(1)
-                femurSD = parsedLine(2)
-                femurArea = parsedLine(3)
+                ' ID = parsedLine(0)
                 
-                thighTotalCnt = parsedLine(4)
-                thighSD = parsedLine(5)
-                thighArea = parsedLine(6)
+                ' Dim idxOfID
                 
-                Cells(idxOfID, 8).Value = femurTotalCnt
-                Cells(idxOfID, 10).Value = femurSD
-                Cells(idxOfID, 11).Value = femurArea
+                ' idxOfID = findIndexOf(ID)
+
+                ' femurTotalCnt = parsedLine(1)
+                ' femurSD = parsedLine(2)
+                ' femurArea = parsedLine(3)
                 
-                Cells(idxOfID, 12).Value = thighTotalCnt
-                Cells(idxOfID, 14).Value = thighSD
-                Cells(idxOfID, 15).Value = thighArea
-            
+                ' thighTotalCnt = parsedLine(4)
+                ' thighSD = parsedLine(5)
+                ' thighArea = parsedLine(6)
+                
+                ' Cells(idxOfID, 8).Value = femurTotalCnt
+                ' Cells(idxOfID, 10).Value = femurSD
+                ' Cells(idxOfID, 11).Value = femurArea
+                
+                ' Cells(idxOfID, 12).Value = thighTotalCnt
+                ' Cells(idxOfID, 14).Value = thighSD
+                ' Cells(idxOfID, 15).Value = thighArea
             
             End If
-            
             
             lineNum = lineNum + 1
         Loop
