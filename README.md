@@ -24,17 +24,18 @@ Title: 뼈스캔 대기시간 단축을 위한 딥러닝 기반의 고화질 영
 
 ### 3.2. 뼈 스캔 데이터 노이즈 제거
 
-![2](https://user-images.githubusercontent.com/46476398/92076747-ffa51200-edf5-11ea-87f7-7023e5bf47aa.JPG)
-
-    - 정규성 검정에 의거한 노이즈 판별 및 재측정 
-
-### 3.2. 분산 스토리지를 통한 데이터 저장
-
 ![3](https://user-images.githubusercontent.com/46476398/92076743-fe73e500-edf5-11ea-8f31-77fb40a623d5.JPG)
 
-    - 다른 기계의 스토리지를 원격으로 접근해서 사용
-    - 로컬 스토리지의 공간의 한계를 극복
-    - 데이터 복제 저장을 통한 fault-tolerance 시스템
+    - 정규성 검정에 의거한 노이즈 판별 및 재측정
+    - VBA를 활용해서 기존 데이터에 비해서 특이한 데이터를 추출 및 재검정
+
+### 3.3. 판독문 수집
+
+![2](https://user-images.githubusercontent.com/46476398/92076747-ffa51200-edf5-11ea-87f7-7023e5bf47aa.JPG)
+
+    - 판독문에 대한 정보는 파일 형태로 따로 추출하기 어려움
+    - Regex를 통해서 필요한 정보들 파싱해서 데이터베이스에 저장
+
 ----------------------------------------    
 ## 4. How to process
     1. install autohotkey
