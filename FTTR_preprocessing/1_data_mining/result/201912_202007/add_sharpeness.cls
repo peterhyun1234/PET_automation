@@ -25,8 +25,13 @@ Function readTextFile()
     Dim sharpeness
     
     Dim pos As Integer
-    Dim sheet_name
+    Dim sheet_name As String
+
     Dim arrLen
+
+
+    sheet_name = "Infi"
+    Worksheets(sheet_name).Activate
 
 
     Open path For Input As #1
@@ -42,10 +47,13 @@ Function readTextFile()
                 pos = InStr(lineValue, "#")
 
                 sheet_name = Mid(lineValue, pos + 1, arrLen - 1)
-            
-                ' Debug.Print sheet_name; vbNewLine;
                 
                 ' change sheet(select)
+
+                Worksheets(sheet_name).Activate
+
+                MsgBox "쉬트: " & ActiveSheet.Name
+            
             Else
                 parsedLine = Split(lineValue)
                 
@@ -53,9 +61,9 @@ Function readTextFile()
                 sharpeness = parsedLine(1)
                 
                 Dim idxOfID
-                ' idxOfID = findIndexOf(ID)
+                idxOfID = findIndexOf(ID)
 
-                ' Cells(idxOfID, 8).Value = femurTotalCnt
+                Cells(idxOfID, 18).Value = sharpeness
 
             End If
             
