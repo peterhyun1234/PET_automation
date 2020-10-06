@@ -13,7 +13,7 @@ Function readTextFile()
     On Error GoTo exmsg
     
     Dim path
-    path = "C:\Users\Ajou NM\Desktop\shs\March_data\march_result.txt"
+    path = "C:\Users\ajoumc\인턴 전현빈\workspace\PET_automation\FTTR_preprocessing\1_data_mining\result\201912_202007\201912_202007_result.txt"
     
     Dim lineNum
     lineNum = 1
@@ -22,59 +22,43 @@ Function readTextFile()
     
     Dim ID
     
-    Dim femurTotalCnt
-    Dim femurSD
-    Dim femurArea
+    Dim sharpeness
     
-    Dim thighTotalCnt
-    Dim thighSD
-    Dim thighArea
-    
-    Dim comments
-    
+    Dim pos As Integer
+    Dim sheet_name
+    Dim arrLen
+
 
     Open path For Input As #1
         Do While Not EOF(1)
             Line Input #1, lineValue
-            ' Debug.Print "Line value"; lineNum; ": "; lineValue; vbNewLine;
-            
-            parsedLine = Split(lineValue)
-            
-            Dim arrLen
-            
-            arrLen = UBound(parsedLine) - LBound(parsedLine) + 1
-            
-            If arrLen < 10 Then
-                Debug.Print sheet; ": "; parsedLine(0); vbNewLine;
-                ' comments = parsedLine(1)
-                
-                ' Cells(idxOfID, 16).Value = comments
-                
-            Else
 
-                ' ID = parsedLine(0)
+            If InStr(lineValue, "#") Then
+
+                arrLen = Len(lineValue)
+
+                ' Debug.Print "arrLen: "; arrLen; vbNewLine;
+
+                pos = InStr(lineValue, "#")
+
+                sheet_name = Mid(lineValue, pos + 1, arrLen - 1)
+            
+                ' Debug.Print sheet_name; vbNewLine;
                 
-                ' Dim idxOfID
+                ' change sheet(select)
+            Else
+                parsedLine = Split(lineValue)
                 
+                ID = parsedLine(0)
+                sharpeness = parsedLine(1)
+                
+                Dim idxOfID
                 ' idxOfID = findIndexOf(ID)
 
-                ' femurTotalCnt = parsedLine(1)
-                ' femurSD = parsedLine(2)
-                ' femurArea = parsedLine(3)
-                
-                ' thighTotalCnt = parsedLine(4)
-                ' thighSD = parsedLine(5)
-                ' thighArea = parsedLine(6)
-                
                 ' Cells(idxOfID, 8).Value = femurTotalCnt
-                ' Cells(idxOfID, 10).Value = femurSD
-                ' Cells(idxOfID, 11).Value = femurArea
-                
-                ' Cells(idxOfID, 12).Value = thighTotalCnt
-                ' Cells(idxOfID, 14).Value = thighSD
-                ' Cells(idxOfID, 15).Value = thighArea
-            
+
             End If
+            
             
             lineNum = lineNum + 1
         Loop
