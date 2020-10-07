@@ -25,6 +25,8 @@
 
 # 4. Preprocessing in high order of sharpness
 
+	by using "PreprocessingHighSharpness.js"
+
 	to "201912_202007_preprocessed_data.xlsx"
 	from "201912_202007_mined_data.xlsx" 
 <br>
