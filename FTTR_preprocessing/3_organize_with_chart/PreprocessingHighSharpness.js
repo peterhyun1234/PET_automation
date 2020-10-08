@@ -5,37 +5,13 @@ const xlsx = require( "xlsx" );
 
 // @files 엑셀 파일을 가져온다.
 const studyTerm = "201912_202007";
-const excelFile = xlsx.readFile( "../data/" + studyTerm + "_data.xlsm" );
+const excelFile = xlsx.readFile( "../data/1_result/" + studyTerm + "/" + studyTerm + "_mined_data.xlsx" );
 
 const dataOutput = xlsx.utils.book_new();
 
 const numbersOfSample = 50;
 let sheetIdx = 0;
 let degreeOfMachines = 4;
-
-Array.prototype.shuffle = function () {
-    var length = this.length;
-    
-    // 아래에서 length 후위 감소 연산자를 사용하면서 결국 0이된다.
-    // 프로그래밍에서 0은 false를 의미하기에 0이되면 종료.
-    while (length) {
- 
-        // 랜덤한 배열 index 추출
-        var index = Math.floor((length--) * Math.random());
- 
-        // 배열의 끝에서부터 0번째 아이템을 순차적으로 대입
-        var temp = this[length];
- 
-        // 랜덤한 위치의 값을 맨뒤(this[length])부터 셋팅
-        this[length] = this[index];
- 
-        // 랜덤한 위치에 위에 설정한 temp값 셋팅
-        this[index] = temp;
-    }
- 
-    // 배열을 리턴해준다.
-    return this;
-};
 
 
 while(sheetIdx < degreeOfMachines){
@@ -90,60 +66,8 @@ while(sheetIdx < degreeOfMachines){
         }
         idx++;
     }
-    //console.log(jsonData.length);
+    console.log(jsonData.length);
     
-    // 랜덤으로 남자 최대 50, 여자 50 넣기
-    for(let i = 0; i < maleAgeGroups.length; i++){
-        let age = [30, 40, 50, 60, 70];
-        let femaleCnt = 0;
-        let maleCnt = 0;
-
-        if(maleAgeGroups[i].length + femaleAgeGroups[i].length <= numbersOfSample * 2){ // 전체 표본이 100개 이하인 경우
-            while(maleAgeGroups[i].length){
-                resultIDs[i].push(maleAgeGroups[i].pop());
-                femaleCnt++;
-            }
-            while(femaleAgeGroups[i].length){
-                resultIDs[i].push(femaleAgeGroups[i].pop());
-                maleCnt++;
-            }
-        }else{
-            
-            if(maleAgeGroups[i].length <= numbersOfSample){ // 남자가 50명 이하인 경우
-                while(maleAgeGroups[i].length){
-                    resultIDs[i].push(maleAgeGroups[i].pop());
-                    maleCnt++;
-                }
-                // 여자는 랜덤화해서 50명 추출 후 push
-                femaleAgeGroups[i].shuffle();
-                while(femaleCnt < numbersOfSample){
-                    resultIDs[i].push(femaleAgeGroups[i].pop());
-                    femaleCnt++;
-                }
-
-            }else{ // 남자, 여자 둘다 랜덤화해서 추출 후 push
-                maleAgeGroups[i].shuffle();
-                while(maleCnt < numbersOfSample){
-                    resultIDs[i].push(maleAgeGroups[i].pop());
-                    maleCnt++;
-                }
-
-                femaleAgeGroups[i].shuffle();
-                femaleCnt = 0;
-                while(femaleCnt < numbersOfSample){
-                    resultIDs[i].push(femaleAgeGroups[i].pop());
-                    femaleCnt++;
-                }
-            }
-        }
-        console.log("group " + age[i] + ": [ Female: " + femaleCnt + ", Male: " + maleCnt + " ]");
-
-        for(let j = 0; j < resultIDs[i].length; j++){
-            let foundInfo = jsonData.find(element => element.ID == resultIDs[i][j]);
-            resultGroups.push(foundInfo);
-        }
-
-    }
 
     // resultGroups를 sheet별로 그대로 넣어주면 됨!
 
