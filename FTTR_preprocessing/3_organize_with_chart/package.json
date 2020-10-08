@@ -1,0 +1,15 @@
+{
+  "name": "3_organize_with_chart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "PreprocessingHighSharpness.js",
+  "scripts": {
+    "start": "nodemon PreprocessingHighSharpness"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.4",
+    "xlsx": "^0.16.6"
+  }
+}
