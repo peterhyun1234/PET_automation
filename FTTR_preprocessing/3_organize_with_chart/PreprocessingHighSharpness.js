@@ -76,6 +76,12 @@ while (sheetIdx < degreeOfMachines) {
 
     let curAgeRange = 30;
     for (let i = 0; i < 5; i++) {
+        femaleAgeGroups[i].sort(function(a, b) {
+            return b[1] - a[1];
+        });
+        maleAgeGroups[i].sort(function(a, b) {
+            return b[1] - a[1];
+        });
         console.log(curAgeRange + "s: " + femaleAgeGroups[i].length + " + " + maleAgeGroups[i].length + " (Female + Male)");
         curAgeRange += 10;
     }
@@ -88,25 +94,51 @@ while (sheetIdx < degreeOfMachines) {
 
     console.log(numbersOfSample + " samples are being extracted randomly for each age group in the order of sharpness.");
 
-
     // 남자 25명 + 여자 25명이 이상적이긴 함
     // 0. sharpness 순으로 정렬하기
     // 1. 남자 25개까지 채우기(addedMaleCount)
     // 2. addedFemaleCount = (50)-(addedMaleCount)
-    // curAgeRange = 30;
-    // for(let age = 0; age < 5; age++){
-    //     if(femaleAgeGroups[age].length)
-    //     curAgeRange += 10;
-    // }
-    // resultIDs[0] // 30대
+    
+    curAgeRange = 30;
+    for(let age = 0; age < 5; age++){
+        
+        if(maleAgeGroups[age].length >= 25){
+            for(let maleCnt = 0; maleCnt < 25; maleCnt++){
+                let curMaleID = maleAgeGroups[age][maleCnt];
+                resultIDs[age].push(curMaleID);
+            }
+        }else{
+            let numOfMale = maleAgeGroups[age].length;
+            for(let maleCnt = 0; maleCnt < numOfMale; maleCnt++){
+                let curMaleID = maleAgeGroups[age][maleCnt];
+                resultIDs[age].push(curMaleID);
+            }
+        }
+
+        let addedFemaleCount = numbersOfSample - resultIDs[age].length;
+        if(femaleAgeGroups[age].length >= addedFemaleCount){
+            for(let femaleCnt = 0; femaleCnt < addedFemaleCount; femaleCnt++){
+                let curFemaleID = femaleAgeGroups[age][femaleCnt];
+                resultIDs[age].push(curFemaleID);
+            }
+        }else{
+            let numOfFemale = femaleAgeGroups[age].length;
+            for(let femaleCnt = 0; femaleCnt < numOfFemale; femaleCnt++){
+                let curFemaleID = femaleAgeGroups[age][femaleCnt];
+                resultIDs[age].push(curFemaleID);
+            }
+        }
+        
+        //console.log(resultIDs[age].length);
+        if(resultIDs[age].length < 50){
+            console.log("");
+
+            console.log("In " + curAgeRange + "s: " + resultIDs[age].length + " (The number of samples is less than " + numbersOfSample + ".)");
+        }
+        curAgeRange += 10;
+    }
 
     
-
-
-
-
-
-
     // resultGroups를 sheet별로 그대로 넣어주면 됨!
 
 
@@ -126,6 +158,10 @@ while (sheetIdx < degreeOfMachines) {
 
     //xlsx.utils.book_append_sheet(dataOutput, currInfos, sheetName);
 
+    console.log("");
+    console.log("");
+    console.log("");
+    console.log("");
     console.log("");
     sheetIdx++; // next sheet
 }
