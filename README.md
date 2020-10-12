@@ -18,7 +18,7 @@ Title: 뼈스캔 대기시간 단축을 위한 딥러닝 기반의 고화질 영
 
 ![1](https://user-images.githubusercontent.com/46476398/92076748-003da880-edf6-11ea-9a6f-7164499889c7.JPG)
 
-    - 뼈 스캔 분석 속도 2.7배 증진
+    - 뼈 스캔 분석 속도 5.7배 증진
     - Thigh and Femur ratio 분석 반자동화 (상처는 직접 판별해야 하기때문)
     - Confound를 줄이기 위한 데이터 균일화 between Thigh and Femur
 
