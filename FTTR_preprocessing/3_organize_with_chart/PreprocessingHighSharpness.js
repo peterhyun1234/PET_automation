@@ -16,13 +16,11 @@ let degreeOfMachines = 4;
 
 while (sheetIdx < degreeOfMachines) {
 
-    let resultGroups = [];
-    let resultIDs = [[], [], [], [], []];
-
+    
     // @breif 엑셀 파일의 첫번째 시트의 정보를 추출
     const sheetName = excelFile.SheetNames[sheetIdx];
     const currSheet = excelFile.Sheets[sheetName];
-
+    
     // @details 엑셀 파일의 첫번째 시트를 읽어온다.
     console.log("[Reading sheet " + sheetIdx + ": " + sheetName + "]");
     const jsonData = xlsx.utils.sheet_to_json(currSheet, { defval: "" });
@@ -31,7 +29,8 @@ while (sheetIdx < degreeOfMachines) {
     let sumOfSharpness = 0;
     let femaleAgeGroups = [[], [], [], [], []];
     let maleAgeGroups = [[], [], [], [], []];
-
+    let resultIDs = [[], [], [], [], []];
+    
     while (idx < jsonData.length) {
         //console.log(jsonData[idx].ID);
 
@@ -39,38 +38,38 @@ while (sheetIdx < degreeOfMachines) {
         // 연령별로 F/M 구분해서 배열에 저장
         if (30 <= jsonData[idx].Age && jsonData[idx].Age < 40) {
             if (jsonData[idx].Sex === 'F') {
-                femaleAgeGroups[0].push(jsonData[idx].ID);
+                femaleAgeGroups[0].push([jsonData[idx].ID, jsonData[idx].Sharpeness]);
             } else {
-                maleAgeGroups[0].push(jsonData[idx].ID);
+                maleAgeGroups[0].push([jsonData[idx].ID, jsonData[idx].Sharpeness]);
             }
         } else if (40 <= jsonData[idx].Age && jsonData[idx].Age < 50) {
             if (jsonData[idx].Sex === 'F') {
-                femaleAgeGroups[1].push(jsonData[idx].ID);
+                femaleAgeGroups[1].push([jsonData[idx].ID, jsonData[idx].Sharpeness]);
             } else {
-                maleAgeGroups[1].push(jsonData[idx].ID);
+                maleAgeGroups[1].push([jsonData[idx].ID, jsonData[idx].Sharpeness]);
             }
         } else if (50 <= jsonData[idx].Age && jsonData[idx].Age < 60) {
             if (jsonData[idx].Sex === 'F') {
-                femaleAgeGroups[2].push(jsonData[idx].ID);
+                femaleAgeGroups[2].push([jsonData[idx].ID, jsonData[idx].Sharpeness]);
             } else {
-                maleAgeGroups[2].push(jsonData[idx].ID);
+                maleAgeGroups[2].push([jsonData[idx].ID, jsonData[idx].Sharpeness]);
             }
         } else if (60 <= jsonData[idx].Age && jsonData[idx].Age < 70) {
             if (jsonData[idx].Sex === 'F') {
-                femaleAgeGroups[3].push(jsonData[idx].ID);
+                femaleAgeGroups[3].push([jsonData[idx].ID, jsonData[idx].Sharpeness]);
             } else {
-                maleAgeGroups[3].push(jsonData[idx].ID);
+                maleAgeGroups[3].push([jsonData[idx].ID, jsonData[idx].Sharpeness]);
             }
         } else if (70 <= jsonData[idx].Age && jsonData[idx].Age < 80) {
             if (jsonData[idx].Sex === 'F') {
-                femaleAgeGroups[4].push(jsonData[idx].ID);
+                femaleAgeGroups[4].push([jsonData[idx].ID, jsonData[idx].Sharpeness]);
             } else {
-                maleAgeGroups[4].push(jsonData[idx].ID);
+                maleAgeGroups[4].push([jsonData[idx].ID, jsonData[idx].Sharpeness]);
             }
         }
         idx++;
     }
-
+    
     console.log("Number of samples: " + idx);
 
     console.log("");
@@ -90,9 +89,21 @@ while (sheetIdx < degreeOfMachines) {
     console.log(numbersOfSample + " samples are being extracted randomly for each age group in the order of sharpness.");
 
 
-
     // 남자 25명 + 여자 25명이 이상적이긴 함
-    resultIDs[0] // 30대
+    // 0. sharpness 순으로 정렬하기
+    // 1. 남자 25개까지 채우기(addedMaleCount)
+    // 2. addedFemaleCount = (50)-(addedMaleCount)
+    // curAgeRange = 30;
+    // for(let age = 0; age < 5; age++){
+    //     if(femaleAgeGroups[age].length)
+    //     curAgeRange += 10;
+    // }
+    // resultIDs[0] // 30대
+
+    
+
+
+
 
 
 
