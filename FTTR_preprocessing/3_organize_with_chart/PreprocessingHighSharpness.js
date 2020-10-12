@@ -16,11 +16,11 @@ let degreeOfMachines = 4;
 
 while (sheetIdx < degreeOfMachines) {
 
-    
+
     // @breif 엑셀 파일의 첫번째 시트의 정보를 추출
     const sheetName = excelFile.SheetNames[sheetIdx];
     const currSheet = excelFile.Sheets[sheetName];
-    
+
     // @details 엑셀 파일의 첫번째 시트를 읽어온다.
     console.log("[Reading sheet " + sheetIdx + ": " + sheetName + "]");
     const jsonData = xlsx.utils.sheet_to_json(currSheet, { defval: "" });
@@ -30,7 +30,9 @@ while (sheetIdx < degreeOfMachines) {
     let femaleAgeGroups = [[], [], [], [], []];
     let maleAgeGroups = [[], [], [], [], []];
     let resultIDs = [[], [], [], [], []];
-    
+    let resultGroups = [];
+
+
     while (idx < jsonData.length) {
         //console.log(jsonData[idx].ID);
 
@@ -69,17 +71,17 @@ while (sheetIdx < degreeOfMachines) {
         }
         idx++;
     }
-    
+
     console.log("Number of samples: " + idx);
 
     console.log("");
 
     let curAgeRange = 30;
     for (let i = 0; i < 5; i++) {
-        femaleAgeGroups[i].sort(function(a, b) {
+        femaleAgeGroups[i].sort(function (a, b) {
             return b[1] - a[1];
         });
-        maleAgeGroups[i].sort(function(a, b) {
+        maleAgeGroups[i].sort(function (a, b) {
             return b[1] - a[1];
         });
         console.log(curAgeRange + "s: " + femaleAgeGroups[i].length + " + " + maleAgeGroups[i].length + " (Female + Male)");
@@ -98,39 +100,39 @@ while (sheetIdx < degreeOfMachines) {
     // 0. sharpness 순으로 정렬하기
     // 1. 남자 25개까지 채우기(addedMaleCount)
     // 2. addedFemaleCount = (50)-(addedMaleCount)
-    
+
     curAgeRange = 30;
-    for(let age = 0; age < 5; age++){
-        
-        if(maleAgeGroups[age].length >= 25){
-            for(let maleCnt = 0; maleCnt < 25; maleCnt++){
+    for (let age = 0; age < 5; age++) {
+
+        if (maleAgeGroups[age].length >= 25) {
+            for (let maleCnt = 0; maleCnt < 25; maleCnt++) {
                 let curMaleID = maleAgeGroups[age][maleCnt];
                 resultIDs[age].push(curMaleID);
             }
-        }else{
+        } else {
             let numOfMale = maleAgeGroups[age].length;
-            for(let maleCnt = 0; maleCnt < numOfMale; maleCnt++){
+            for (let maleCnt = 0; maleCnt < numOfMale; maleCnt++) {
                 let curMaleID = maleAgeGroups[age][maleCnt];
                 resultIDs[age].push(curMaleID);
             }
         }
 
         let addedFemaleCount = numbersOfSample - resultIDs[age].length;
-        if(femaleAgeGroups[age].length >= addedFemaleCount){
-            for(let femaleCnt = 0; femaleCnt < addedFemaleCount; femaleCnt++){
+        if (femaleAgeGroups[age].length >= addedFemaleCount) {
+            for (let femaleCnt = 0; femaleCnt < addedFemaleCount; femaleCnt++) {
                 let curFemaleID = femaleAgeGroups[age][femaleCnt];
                 resultIDs[age].push(curFemaleID);
             }
-        }else{
+        } else {
             let numOfFemale = femaleAgeGroups[age].length;
-            for(let femaleCnt = 0; femaleCnt < numOfFemale; femaleCnt++){
+            for (let femaleCnt = 0; femaleCnt < numOfFemale; femaleCnt++) {
                 let curFemaleID = femaleAgeGroups[age][femaleCnt];
                 resultIDs[age].push(curFemaleID);
             }
         }
-        
+
         //console.log(resultIDs[age].length);
-        if(resultIDs[age].length < 50){
+        if (resultIDs[age].length < 50) {
             console.log("");
 
             console.log("In " + curAgeRange + "s: " + resultIDs[age].length + " (The number of samples is less than " + numbersOfSample + ".)");
@@ -138,7 +140,22 @@ while (sheetIdx < degreeOfMachines) {
         curAgeRange += 10;
     }
 
-    
+
+    /* 여기 부터
+    for(let j = 0; j < resultIDs[i].length; j++){
+        let foundInfo = jsonData.find(element => element.ID == resultIDs[i][j]);
+        resultGroups.push(foundInfo);
+    }
+
+
+    let curInfo = jsonData.find(resultIDs[a][b]);
+
+
+    resultGroups.push(curInfo);
+    */ 
+
+
+
     // resultGroups를 sheet별로 그대로 넣어주면 됨!
 
 
@@ -167,5 +184,5 @@ while (sheetIdx < degreeOfMachines) {
 }
 
 // files 엑셀파일을 생성하고 저장한다.
-//xlsx.writeFile(dataOutput, studyTerm + "_mined_data.xlsx"); 
+//xlsx.writeFile(dataOutput, studyTerm + "_preprocessed_data.xlsx"); 
 
