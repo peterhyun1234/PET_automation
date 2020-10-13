@@ -137,43 +137,42 @@ while (sheetIdx < degreeOfMachines) {
 
             console.log("In " + curAgeRange + "s: " + resultIDs[age].length + " (The number of samples is less than " + numbersOfSample + ".)");
         }
+
+        for(let j = 0; j < resultIDs[age].length; j++){
+            let curID = resultIDs[age][j][0];
+            let foundInfo = jsonData.find(element => element.ID == curID);
+            //console.log(foundInfo);
+            
+            resultGroups.push(foundInfo);
+        }
+
         curAgeRange += 10;
     }
 
 
-    /* 여기 부터
-    for(let j = 0; j < resultIDs[i].length; j++){
-        let foundInfo = jsonData.find(element => element.ID == resultIDs[i][j]);
-        resultGroups.push(foundInfo);
-    }
+    console.log("");
 
-
-    let curInfo = jsonData.find(resultIDs[a][b]);
-
-
-    resultGroups.push(curInfo);
-    */ 
-
+    console.log("Minded number of samples: " + resultGroups.length);
 
 
     // resultGroups를 sheet별로 그대로 넣어주면 됨!
 
 
-    // const currInfos = xlsx.utils.json_to_sheet(resultGroups, {skipHeader: false });
+    const currInfos = xlsx.utils.json_to_sheet(resultGroups, {skipHeader: false });
 
-    // // @breif CELL 넓이 지정
+    // @breif CELL 넓이 지정
 
-    // currInfos["!cols"] = [
-    //     { wpx: 80 }   // A열
-    //     , { wpx: 80 }   // B열
-    //     , { wpx: 80 }    // C열
-    //     , { wpx: 60 }    // D열
-    //     , { wpx: 60 }    // D열
-    // ]
+    currInfos["!cols"] = [
+        { wpx: 80 }   // A열
+        , { wpx: 80 }   // B열
+        , { wpx: 80 }    // C열
+        , { wpx: 60 }    // D열
+        , { wpx: 60 }    // D열
+    ]
 
 
 
-    //xlsx.utils.book_append_sheet(dataOutput, currInfos, sheetName);
+    xlsx.utils.book_append_sheet(dataOutput, currInfos, sheetName);
 
     console.log("");
     console.log("");
@@ -184,5 +183,5 @@ while (sheetIdx < degreeOfMachines) {
 }
 
 // files 엑셀파일을 생성하고 저장한다.
-//xlsx.writeFile(dataOutput, studyTerm + "_preprocessed_data.xlsx"); 
+xlsx.writeFile(dataOutput, studyTerm + "_preprocessed_data.xlsx"); 
 
