@@ -46,6 +46,9 @@
 	6. 기계 = next_기계
 
 # 5. Data parsing and analysis
+
+	by using "order0PreprocessedData.cls"
+
 	to "2019012_202007_preprocessed_FTTR.xlsm"
 	from "201912_202007_preprocessed_data.xlsx" 
 <br>
