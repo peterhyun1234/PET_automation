@@ -47,7 +47,7 @@
 
 # 5. Data parsing and analysis
 
-	by using "orderPreprocessedData.cls"
+	by copying each cells
 
 	to "2019012_202007_preprocessed_FTTR.xlsm"
 	from "201912_202007_preprocessed_data.xlsx" 
