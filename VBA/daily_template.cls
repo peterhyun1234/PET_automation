@@ -16,21 +16,20 @@ cellarr(4) = 24
 
 
 '''''''''''''''''''''''''''''''
-Origin = "202006 정리본.xlsm" '
+Origin = "202010 정리본.xlsm" '
                               '
-WBS = "20200601"              '
+WBS = "20201015"              '
 WB = WBS + ".csv"             '
 '''''''''''''''''''''''''''''''
 
-Workbooks.Open Filename:="D:\shs\" & WB
-'Workbooks.Open Filename:="C:\Users\ajoumc\Desktop\" & WB
+Workbooks.Open Filename:="C:\Users\ajounm\Desktop\ajounm\shs\" & WB
 
 Workbooks(WB).Activate
 Sheets(WBS).Select
-LastRow = Workbooks(WB).Sheets(WBS).Cells(Rows.Count, 1).End(xlUp).Row
+lastRow = Workbooks(WB).Sheets(WBS).Cells(Rows.Count, 1).End(xlUp).Row
 
-LastCell_1 = "G" & LastRow
-LastCell_2 = "H" & LastRow
+LastCell_1 = "G" & lastRow
+LastCell_2 = "H" & lastRow
 
 Range_1 = "A2:" & LastCell_1
 Range_2 = "H2:" & LastCell_2
