@@ -6,6 +6,7 @@ currentID = 0
 currentReadLine := ""
 bun := ""
 creatinine := ""
+s_password := "ajounm53230"
 
 idTxtName = Infi\input_id.txt
 destTxtName = Infi\output_BAC.txt
@@ -50,6 +51,7 @@ return
 
 a:: ; 2. when press some keys, then Search Id and
 
+	Coordmode, Mouse, Screen
 
 	currentID := idArray[idIdx]
 
@@ -60,24 +62,23 @@ a:: ; 2. when press some keys, then Search Id and
 		return
 	}
 		
-	Mousemove, 465, 176
-	Sleep, 100
+	MouseClick, left, 800, 200
+	; MouseClick, left, 1290, 113
 
-	; remove
-	MouseClick
-	Sleep, 100
-	Send, {BS}
 
-	; insert
-	MouseClick
-	Sleep, 100
-	Send, %currentID%
-	Sleep, 100
-	Send, {Enter}
-	Sleep, 100
+	; Sleep, 500
+	; Send, {BS}
 
-	Mousemove, 30, 236
-	MouseClick
+	; ; insert
+	; MouseClick
+	; Sleep, 500
+	; Send, %currentID%
+	; Sleep, 500
+	; Send, {Enter}
+	; Sleep, 500
+
+	; Mousemove, 30, 236
+	; MouseClick
 
 	idIdx ++
 
@@ -87,8 +88,7 @@ return
 
 s::
 
-	Mousemove, 1612, 592
-	MouseClick
+	Send ^!{Tab}
 
 return
 
