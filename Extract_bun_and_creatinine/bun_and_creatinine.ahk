@@ -4,35 +4,40 @@ idArrayLen = 0
 currentID = 0
 
 currentReadLine := ""
-sharpness := ""
+bun := ""
+creatinine := ""
 
-idTxtName = 201912_202007\201912_202007_ID.txt
-destTxtName = 201912_202007\201912_202007_result.txt
+idTxtName = Infi\input_id.txt
+destTxtName = Infi\output_BAC.txt
 
 Gui, New, hwndhGui AlwaysOnTop
 Gui, Add, Text,, Checking Sharness 
-Gui, Add, Edit, x21 y45 w500 h19 vName, Edit
-Gui, Add, Text, x21 y74 w100 h19 ,Progress: 
+Gui, Add, Edit, x11 y45 w500 h19 vName, Edit
+Gui, Add, Text, x11 y74 w100 h19 ,Progress: 
 Gui, Add, Edit, x75 y70 w300 h19 vProcess,
-Gui, Add, Button, x50 y150 w100 h30 gPush_sharpness, read sharpness
-Gui, Show, x3300 y0
+Gui, Add, Button, x50 y150 w250 h30 gPush_bun_and_creatinine, read bun_and_creatinine
+Gui, Show, x1635 y0
 
-Push_sharpness:
+Push_bun_and_creatinine:
 
-	global sharpness
+	global bun
+	global creatinine
 
 	Gui,Submit,nohide
 
-	sharpness := Name
+	bun_and_creatinine := StrSplit(Name, A_Space, ".")
 
-	; MsgBox, 4, , % "sharpness: " sharpness , 3
+	bun := bun_and_creatinine[1]
+	creatinine := bun_and_creatinine[2]
+	
+    MsgBox, 4, , % "bun: " bun ", creatinine: " creatinine , 3
 
 return
 
 
 ^r:: ; 1. load IDs in file data
 
-	Loop, Read, C:\Program Files\AutoHotkey\1_data_mining\result\%idTxtName%
+	Loop, Read, C:\Users\ajounm\Desktop\hb_workspace\PET_automation\Extract_bun_and_creatinine\data\%idTxtName%
 	{
 		idArray.insert(A_LoopReadLine)
 		idArrayLen++
@@ -52,38 +57,6 @@ a:: ; 2. when press some keys, then Search Id and
 	if !currentID 
 	{
 		Msgbox, "currentID empty"
-		return
-	}
-
-	if currentID = #Infi
-	{
-		;Msgbox, %currentID%
-		idIdx ++
-		write_machine()
-		return
-	}
-
-	if currentID = #Sym
-	{
-		;Msgbox, %currentID%
-		idIdx ++
-		write_machine()
-		return
-	}
-
-	if currentID = #NMCT670
-	{
-		;Msgbox, %currentID%
-		idIdx ++
-		write_machine()
-		return
-	}
-
-	if currentID = #NM830
-	{
-		;Msgbox, %currentID%
-		idIdx ++
-		write_machine()
 		return
 	}
 		
@@ -121,7 +94,7 @@ return
 
 
 
-d:: ; Start Settings and Write sharpness
+d:: ; Start Settings and Write bun
 	
 	Mousemove, 18, 780
 	MouseClick
@@ -140,11 +113,11 @@ d:: ; Start Settings and Write sharpness
 return 
 
 
-f:: ; write sharpness for each ID
+f:: ; write bun for each ID
 
-	push_sharpness()
+	push_bun()
 
-	write_statistics()
+	write_data()
 
 	initialize_count()
 
@@ -179,10 +152,10 @@ StartSetting(X, Y, Zoom, Bright){
 }
 
 
-push_sharpness(){
+push_bun(){
 	Coordmode, Mouse, Screen
 
-	MouseClick, left, 3400, 185 ; sharpness push button
+	MouseClick, left, 3400, 185 ; bun push button
 
 	Sleep, 50
 
@@ -190,28 +163,21 @@ push_sharpness(){
 
 }
 
-write_machine(){
+
+write_data(){
 
 	global destTxtName 
 	global currentID
+	global bun
 
-	FileAppend, %currentID%`n, C:\Program Files\AutoHotkey\1_data_mining\result\%destTxtName%
-}
-
-write_statistics(){
-
-	global destTxtName 
-	global currentID
-	global sharpness
-
-	FileAppend, %currentID% %sharpness%`n, C:\Program Files\AutoHotkey\1_data_mining\result\%destTxtName%
+	FileAppend, %currentID% %bun%`n, C:\Users\ajounm\Desktop\hb_workspace\PET_automation\Extract_bun_and_creatinine\data\%destTxtName%
 }
 
 
 initialize_count(){
 
-	global sharpness 
-	sharpness = 0
+	global bun 
+	bun = 0
 }
 
 initialize_progress(){
