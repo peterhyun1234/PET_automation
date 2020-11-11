@@ -4,12 +4,12 @@
   "description": "1. 성별도 비슷하게 맞춰야하지 않나? M:F = 1:1로 \r 2. 측정 날짜도 랜덤으로 뽑아낼 필요가 있음",
   "main": "readAndPreprocessing.js",
   "scripts": {
-    "start": "nodemon readAndPreprocessing"
+    "start": "nodemon readAndPreprocessing_woc"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.6",
     "xlsx": "^0.16.6"
   }
 }
