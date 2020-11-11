@@ -149,26 +149,26 @@ while(sheetIdx < degreeOfMachines){
     // resultGroups를 sheet별로 그대로 넣어주면 됨!
 
 
-    // const currInfos = xlsx.utils.json_to_sheet(resultGroups, {skipHeader: false });
+    const currInfos = xlsx.utils.json_to_sheet(resultGroups, {skipHeader: false });
 
-    // // @breif CELL 넓이 지정
+    // @breif CELL 넓이 지정
 
-    // currInfos["!cols"] = [
-    //     { wpx: 80 }   // A열
-    //     , { wpx: 80 }   // B열
-    //     , { wpx: 80 }    // C열
-    //     , { wpx: 60 }    // D열
-    //     , { wpx: 60 }    // D열
-    // ]
+    currInfos["!cols"] = [
+        { wpx: 80 }   // A열
+        , { wpx: 80 }   // B열
+        , { wpx: 80 }    // C열
+        , { wpx: 60 }    // D열
+        , { wpx: 60 }    // D열
+    ]
 
 
 
-    //xlsx.utils.book_append_sheet(dataOutput, currInfos, sheetName);
+    xlsx.utils.book_append_sheet(dataOutput, currInfos, sheetName);
 
     
     sheetIdx++; // next sheet
 }
 
 // files 엑셀파일을 생성하고 저장한다.
-//xlsx.writeFile(dataOutput, studyTerm + "_mined_data.xlsx"); 
+xlsx.writeFile(dataOutput, studyTerm + "_mined_woc_data.xlsx"); 
 
