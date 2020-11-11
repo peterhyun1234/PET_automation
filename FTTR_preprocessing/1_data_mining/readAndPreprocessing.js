@@ -55,7 +55,7 @@ while(sheetIdx < degreeOfMachines){
     let femaleAgeGroups = [[],[],[],[],[]];
     let maleAgeGroups = [[],[],[],[],[]];
 
-    while(jsonData[idx].ID){
+    while(idx < jsonData.length){
         // 연령별로 F/M 구분해서 배열에 저장
         if(30 <= jsonData[idx].Age && jsonData[idx].Age < 40){
             if(jsonData[idx].Sex === 'F'){
