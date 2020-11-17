@@ -1,4 +1,4 @@
-Sub measurementOfFemurToThighRatio()
+Sub FTTR_for_study()
 
 
 Call readTextFile

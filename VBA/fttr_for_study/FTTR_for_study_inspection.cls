@@ -1,4 +1,4 @@
-Sub inspectionOfFemurToThighRatio()
+Sub FTTR_for_study_inspection()
 
 
 Call findNoises
