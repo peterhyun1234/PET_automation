@@ -80,17 +80,24 @@ Function readTextFile()
                 secondThighSD = parsedLine(11)
                 secondThighArea = parsedLine(12)
 
-                Debug.Print idxOfID; "."; secondThighSD; ": "; secondThighArea; vbNewLine;
+                ' Debug.Print idxOfID; "."; secondThighSD; ": "; secondThighArea; vbNewLine;
                 
-                ' Cells(idxOfID, 8).Value = firstFemurTotalCnt
-                ' Cells(idxOfID, 10).Value = firstFemurSD
-                ' Cells(idxOfID, 11).Value = firstFemurArea
+                Cells(idxOfID, 8).Value = firstFemurTotalCnt
+                Cells(idxOfID, 10).Value = firstFemurSD
+                Cells(idxOfID, 11).Value = firstFemurArea
                 
-                ' Cells(idxOfID, 12).Value = firstThighTotalCnt
-                ' Cells(idxOfID, 14).Value = firstThighSD
-                ' Cells(idxOfID, 15).Value = firstThighArea
+                Cells(idxOfID, 12).Value = firstThighTotalCnt
+                Cells(idxOfID, 14).Value = firstThighSD
+                Cells(idxOfID, 15).Value = firstThighArea
             
-            
+                Cells(idxOfID, 17).Value = secondFemurTotalCnt
+                Cells(idxOfID, 19).Value = secondFemurSD
+                Cells(idxOfID, 20).Value = secondFemurArea
+                
+                Cells(idxOfID, 21).Value = secondThighTotalCnt
+                Cells(idxOfID, 23).Value = secondThighSD
+                Cells(idxOfID, 24).Value = secondThighArea
+
             End If
             
             
@@ -129,3 +136,4 @@ Function findIndexOf(ID)
     findIndexOf = findedIdx
 
 End Function
+
