@@ -13,7 +13,7 @@ Function readTextFile()
     On Error GoTo exmsg
     
     Dim path
-    path = "C:\Users\Ajou NM\Desktop\shs\March_data\march_result.txt"
+    path = "C:\Users\ajounm\Desktop\ajounm\for_study\202008\202008_result.txt"
     
     Dim lineNum
     lineNum = 1
@@ -22,16 +22,21 @@ Function readTextFile()
     
     Dim ID
     
-    Dim femurTotalCnt
-    Dim femurSD
-    Dim femurArea
+    Dim firstFemurTotalCnt
+    Dim firstFemurSD
+    Dim firstFemurArea
     
-    Dim thighTotalCnt
-    Dim thighSD
-    Dim thighArea
+    Dim firstThighTotalCnt
+    Dim firstThighSD
+    Dim firstThighArea
+
+    Dim secondFemurTotalCnt
+    Dim secondFemurSD
+    Dim secondFemurArea
     
-    Dim comments
-    
+    Dim secondThighTotalCnt
+    Dim secondThighSD
+    Dim secondThighArea
 
     Open path For Input As #1
         Do While Not EOF(1)
@@ -39,8 +44,6 @@ Function readTextFile()
             ' Debug.Print "Line value"; lineNum; ": "; lineValue; vbNewLine;
             
             parsedLine = Split(lineValue)
-            
-            ID = parsedLine(0)
             
             Dim arrLen
             
@@ -54,28 +57,38 @@ Function readTextFile()
             
             
             If arrLen < 3 Then
-                ' Debug.Print idxOfID; "."; parsedLine(0); ": "; parsedLine(1); vbNewLine;
-                comments = parsedLine(1)
+                Debug.Print idxOfID; "."; parsedLine(0); ": "; parsedLine(1); vbNewLine;
+                ' comments = parsedLine(1)
                 
-                Cells(idxOfID, 16).Value = comments
+                ' Cells(idxOfID, 16).Value = comments
                 
             Else
 
-                femurTotalCnt = parsedLine(1)
-                femurSD = parsedLine(2)
-                femurArea = parsedLine(3)
+                firstFemurTotalCnt = parsedLine(1)
+                firstFemurSD = parsedLine(2)
+                firstFemurArea = parsedLine(3)
                 
-                thighTotalCnt = parsedLine(4)
-                thighSD = parsedLine(5)
-                thighArea = parsedLine(6)
+                firstThighTotalCnt = parsedLine(4)
+                firstThighSD = parsedLine(5)
+                firstThighArea = parsedLine(6)
+
+                secondFemurTotalCnt = parsedLine(7)
+                secondFemurSD = parsedLine(8)
+                secondFemurArea = parsedLine(9)
                 
-                Cells(idxOfID, 8).Value = femurTotalCnt
-                Cells(idxOfID, 10).Value = femurSD
-                Cells(idxOfID, 11).Value = femurArea
+                secondThighTotalCnt = parsedLine(10)
+                secondThighSD = parsedLine(11)
+                secondThighArea = parsedLine(12)
+
+                Debug.Print idxOfID; "."; secondThighSD; ": "; secondThighArea; vbNewLine;
                 
-                Cells(idxOfID, 12).Value = thighTotalCnt
-                Cells(idxOfID, 14).Value = thighSD
-                Cells(idxOfID, 15).Value = thighArea
+                ' Cells(idxOfID, 8).Value = firstFemurTotalCnt
+                ' Cells(idxOfID, 10).Value = firstFemurSD
+                ' Cells(idxOfID, 11).Value = firstFemurArea
+                
+                ' Cells(idxOfID, 12).Value = firstThighTotalCnt
+                ' Cells(idxOfID, 14).Value = firstThighSD
+                ' Cells(idxOfID, 15).Value = firstThighArea
             
             
             End If
